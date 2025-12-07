@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+@font-face{
+font-family: Anton;
+src: url('./assets/Anton/Anton-Regular.ttf') format('truetype');
+}
+/* set colors for theme */
+@theme{
+  --color-orange-p: #fc6234;
+  --color-black-p: #000000;
+  --color-white-p: #FFFFFF;
+  --color-gray-s: #1d1c1e;
+
+
+}
+
+
+
+/*direct html modification  */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar{
+width: 7px;
+overflow: visible;
+background: transparent;
+position: fixed;
+
+}
+::-webkit-scrollbar-thumb{
+  background: #000000ed;
+  border-radius: 4px;
+  width: 8px;
+}
+
+html, body{
+    overflow-x: hidden;
+    background: #0e0d0f;
+}
+
+/* snowflake */
+.snowflake {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fall 4s linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(200px); opacity: 0; }
+}
+
+.drift-left {
+  animation: fall 4s linear forwards, driftLeft 4s ease-in-out forwards;
+}
+
+.drift-right {
+  animation: fall 4s linear forwards, driftRight 4s ease-in-out forwards;
+}
+
+@keyframes driftLeft {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-30px); }
+  100% { transform: translateX(-60px); }
+}
+
+@keyframes driftRight {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(30px); }
+  100% { transform: translateX(60px); }
+}

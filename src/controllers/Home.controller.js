@@ -65,11 +65,13 @@ export const largeIcons = [
     }
 
     export  const animate = (layer1, layer2, layer3, mouse) => {
+     
     // Apply transforms based on latest mouse position
-    
+    if(layer1.current && layer2.current && layer3.current){
       layer1.current.style.transform = `translate(${mouse.current.x * 60}px, ${mouse.current.y * 60}px)`;
       layer2.current.style.transform = `translate(${mouse.current.x * 120}px, ${mouse.current.y * 120}px)`;
       layer3.current.style.transform = `translate(${mouse.current.x * 180}px, ${mouse.current.y * 180}px)`;
+    }
     
     }
   

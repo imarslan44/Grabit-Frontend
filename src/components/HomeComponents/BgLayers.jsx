@@ -3,7 +3,7 @@ import { smallIcons, largeIcons, mediumIcons } from '../../controllers/Home.cont
 import { handleDrag, handleMouseMove, animate  } from '../../controllers/Home.controller';
 
 
-const BgLayers = () => {
+const BgLayers = ({heroRef}) => {
  const mouse = useRef({ x: 0, y: 0 });
 
   const layer1 = useRef(null);
@@ -12,11 +12,11 @@ const BgLayers = () => {
 
 
 useEffect(() => {
-
+let animationFrameId;
 
   const animation = ()=>{
    animate(layer1, layer2, layer3, mouse);
-   requestAnimationFrame(animation);
+   animationFrameId = requestAnimationFrame(animation);
    } 
  
 
@@ -26,15 +26,16 @@ useEffect(() => {
     const onTouchmove = (e)=>{
       mouse.current = handleDrag(e)
     }
-
-    window.addEventListener("mousemove", onMousemove);
-    document.addEventListener("touchmove", onTouchmove)
+const heroPage = heroRef.current;
+    heroPage.addEventListener("mousemove", onMousemove);
+    heroPage.addEventListener("touchmove", onTouchmove)
 
     animation()
    
     return () => {
-      window.removeEventListener("mousemove", onMousemove);
-      document.removeEventListener("touchmove", onTouchmove)
+      heroPage.removeEventListener("mousemove", onMousemove);
+      heroPage.removeEventListener("touchmove", onTouchmove);
+      cancelAnimationFrame(animationFrameId)
     }
   
   }, []);

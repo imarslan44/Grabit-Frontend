@@ -7,7 +7,7 @@ src: url('./assets/Anton/Anton-Regular.ttf') format('truetype');
 }
 /* set colors for theme */
 @theme{
-  --color-orange-p: #fc6234;
+
   --color-primary-1: #000000;
   --color-primary-2: #FFFFFF;
   --color-secondary-1: #1d1c1e;
@@ -20,7 +20,7 @@ src: url('./assets/Anton/Anton-Regular.ttf') format('truetype');
 
 
 form input{
-  @apply border w-full my-1 rounded p-1
+  @apply border w-full my-1 rounded-xs p-1 text-xs
 }
 
 

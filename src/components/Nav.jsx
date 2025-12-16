@@ -49,7 +49,7 @@ const Nav = () => {
         <div className="flex gap-5">
           <NavLink to="/cart" className="  rounded-sm h-full flex justify-center items-center "><ion-icon name="cart-outline" className="text-black w-8 h-8"></ion-icon>
           </NavLink>
-<NavLink to={"/signIn/signUp"}>
+<NavLink to={"/login"}>
             <Button styles="bg-black ring " content={"Login"}></Button>
 </NavLink>
        <button id="menu" className="text-whtie md:hidden translate-y-0.5" onClick={()=>setShowSidebar(()=>!ShowSidebar)}>

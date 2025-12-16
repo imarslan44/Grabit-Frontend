@@ -19,7 +19,6 @@ loead:()=> {
 
 extraReducers: (builder)=>{
     builder.addCase(LoadProducts.pending, (state, action)=>{
-        console.log("loading Products");
         state.loading = true
     }).addCase(LoadProducts.fulfilled, (state, action)=>{
         state.products = action.payload;

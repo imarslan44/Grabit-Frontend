@@ -1,40 +1,88 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BACKEND_URL } from "../CONFIG/env.js";
+import { useNavigate, useLocation } from "react-router-dom";
+import {useDispatch} from "react-redux"
+import { login } from "../context/auth.slice.js";
 
 const Login = () => {
-  const [type, setType] = useState("new");
+  const [type, setType] = useState("login");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const location = useLocation().state?.from || "/";
+//handling inputs change
+  const handleFormData = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+  //login fucntion
   const signIn = async (e) => {
     e.preventDefault();
 
     try {
       const url = `${BACKEND_URL}/api/auth/sign-in`;
-      console.log(url);
       const { email, password } = formData;
+
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ email, password }),
+        credentials: "include", // 👈 required
       });
 
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
       const data = await res.json();
       console.log("Sign-in response:", data);
+
+      if(res.status === 200){
+        dispatch(login(data.data.user))
+        navigate(`${location}`);
+       
+      }
+
     } catch (err) {
       console.error("Sign-in failed:", err.message);
     }
   };
+  //register function
+   const signUp = async(e)=>{
+    e.preventDefault()
+    try{
+      const {name, email, password} = formData;
+      const url = `${BACKEND_URL}/api/auth/sign-up`
+      const res = await fetch(url, {
+        method: "POST",
+        headers:{
+          "Content-type": "application/json",
+          credentials: true,
+        },
+        body:JSON.stringify({name, email, password})
+      });
 
-  const handleFormData = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+      const data = await res.json();
+  
+      if(res.status === 200){
+        dispatch(login(data.data.user))
+        navigate(location)
+      }
+
+    }catch(err){
+      console.log(err.message)
+    }
+    }
+
+
+  
+
+
 
   return (
     <div className="w-screen h-screen bg-primary-2 flex items-center justify-center relative">
@@ -45,12 +93,9 @@ const Login = () => {
         <ion-icon name="arrow-back-outline"></ion-icon> Back
       </Link>
 
-      {type === "new" ? (
+      {type === "register" ? (
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            // TODO: implement signup logic here
-          }}
+          onSubmit={signUp}
           className="border border-secondary-2/10 shadow-sm rounded-sm flex flex-col p-6"
         >
           <h1 className="w-full text-center font-semibold text-lg pb-3 text-secondary-2/60">
@@ -85,7 +130,7 @@ const Login = () => {
             <button
               type="button"
               className="cursor-pointer underline"
-              onClick={() => setType("old")}
+              onClick={() => setType("login")}
             >
               SignIn
             </button>
@@ -93,6 +138,7 @@ const Login = () => {
           <button
             className="w-full p-1 text-sm text-primary-2 bg-primary-1/80 hover:bg-primary-1 duration-200 rounded-xs cursor-pointer"
             type="submit"
+            
           >
             SignUp
           </button>
@@ -126,7 +172,7 @@ const Login = () => {
             <button
               type="button"
               className="cursor-pointer underline"
-              onClick={() => setType("new")}
+              onClick={() => setType("register")}
             >
               SignUp
             </button>

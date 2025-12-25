@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import { useSelector, useDispatch} from 'react-redux'
-
-import {ProductList} from "../assets/assets.js"
+import { BACKEND_URL } from "../CONFIG/env.js";
 import { LoadProducts } from '../context/productsSlice.js'
 
 const Products = () => {
   const [items, setitems] = useState([]);
-
+  const [ProductList, setProductList] = useState([])
   const {products, loading, error} = useSelector((state)=> state.products);
   const dispatch = useDispatch();
 
+  const fetchProducts = async (req , res) =>{
+    const url = `${BACKEND_URL}/api/product`
+    const response = await fetch(url)
+    const data = await response.json();
+    console.log(data.data);
+    setProductList(data.data)
+    setitems(data.data)
+  }
 
 
   useEffect(() => {
+    fetchProducts();
     dispatch(LoadProducts(ProductList))
     
-  }, [dispatch]);
+  },[]);
 
 
   useEffect(() => {
-    setitems(products)
+  console.log("itmes", items)
 
-  }, [products]);
+  }, [items]);
   
   
   return (

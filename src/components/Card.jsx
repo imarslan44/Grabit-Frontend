@@ -11,8 +11,7 @@ const price = variant?.price || variant?.sizes?.[0]?.price;
   
   return (
     <Link to={`/product/${item._id}`} className={classes} key={index} id={item._id}>
-                <img src={
-                  "https://res.cloudinary.com/ddaid56zh/image/upload/v1766590607/products/m5kvdmdvmitfznhjgvdf.jpg"} alt="" className="w-full h-6/7 rounded-sm object-center object-cover" />
+                <img src={image} alt="" className="w-full h-6/7 rounded-sm object-center object-cover" />
                 <div className="flex p-2">
                 <h2 className="text-gray-s/80 w-full text-sm font-semibold capitalize leading-3 ">{item.title}</h2>
                 <span className="text-gray-s/50 text-xs">Rs{price}</span>

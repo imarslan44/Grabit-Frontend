@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import { useSelector, useDispatch} from 'react-redux'
-import { BACKEND_URL } from "../CONFIG/env.js";
+import { BACKEND_URL } from '../config/env.js';
 import { LoadProducts } from '../context/productsSlice.js'
 
 const Products = () => {
@@ -14,7 +14,7 @@ const Products = () => {
     const url = `${BACKEND_URL}/api/product`
     const response = await fetch(url)
     const data = await response.json();
-    console.log(data.data);
+    console.log(data.data); 
     setProductList(data.data)
     setitems(data.data)
   }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BACKEND_URL } from "../CONFIG/env.js";
+import { BACKEND_URL } from "../config/env.js";
 import { useNavigate, useLocation } from "react-router-dom";
-import {useDispatch} from "react-redux"
+import {useDispatch} from "react-redux";
 import { login } from "../context/auth.slice.js";
 
 const Login = () => {
@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const url = `${BACKEND_URL}/api/auth/sign-in`;
+      const url = `${BACKEND_URL}/api/user/sign-in`;
       const { email, password } = formData;
 
       const res = await fetch(url, {

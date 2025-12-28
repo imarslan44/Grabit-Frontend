@@ -17,12 +17,12 @@ import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 const App = () => {
 
   return (
-    <main className="container ">
+    <div className="container relative">
 <Routes>
      <Route path="/" element={(<>
           <Nav/>
           <Home/>
-          <BestSeller/>
+          <BestSeller/> 
           <Products/>
           </>)}/>
 
@@ -47,7 +47,7 @@ const App = () => {
    
   </Routes>
 
-    </main>
+    </div>
   )
 }
 

@@ -30,8 +30,8 @@ export const getCartItems = async () =>{
     credentials: "include"
    });
    const data = await response.json();
-
-
+  console.log(response)
+  console.log("data: ", data)
    const status = response.status
    
   if(status === 401){
@@ -55,8 +55,9 @@ export const  deleteCartItem = async (id)=>{
       },
       credentials: "include",
     })
+    const data = await response.json()
 
-    console.log(response);
+   return data
 
 
   } catch(error){

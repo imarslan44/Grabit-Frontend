@@ -14,10 +14,20 @@ const Cart = () => {
     console.log(cartItems)
     setCartItems(cartItems)
   }
+
   useEffect(() => {
     fetchCartItems()
   }, [])
   
+  const handleDelete = async(id)=>{
+    const data = await deleteCartItem(id);
+    if(data.success){
+      const cartItemsCopy = [...CartItems];
+      const leftItems = cartItemsCopy.filter((item)=> item._id !== id);
+      setCartItems(leftItems)
+    }
+
+  }
   
 
 
@@ -33,10 +43,10 @@ const Cart = () => {
             <header className="bg-black  text-primary-2 uppercase font-semibold text-lg p-2 w-1/2 max-md:w-full"><h1> Items In cart </h1></header>
           
             {
-           CartItems.length > 0 &&  CartItems.map((item)=>(
+           CartItems?.length > 0 &&  CartItems.map((item)=>(
             <li key={item._id} className="flex flex-col bg-primary-2 rounded my-1 shadow-md w-1/2 max-md:w-full p-3 max-md:scale-90 relative pt-9">
               <button 
-                onClick={()=>deleteCartItem(item._id)}
+                onClick={()=>handleDelete(item._id)}
                 className=" shadow flex justify-center items-center p-2 w-6 h-6 rounded-xs absolute top-1 right-1 cursor-pointer">
 
                   <ion-icon className="text-xl scale-250 hover:text-red-400" name="close-outline"></ion-icon>
@@ -52,9 +62,9 @@ const Cart = () => {
 
                 <div className="flex gap-2 items-center border w-[20%] p-2 rounded border-gray-500">
                <span className="text-gray-500">Rs{item?.variant?.price}</span>
-                <button className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
+                <Link to="/order/place" className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
                 BUY
-               </button>
+               </Link>
                 </div>
                 </div>
                <div className="block">

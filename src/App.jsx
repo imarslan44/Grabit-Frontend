@@ -13,7 +13,7 @@ import Contact from "./pages/Contact.jsx"
 import Login from './pages/Login.jsx'
 import Cart from './pages/Cart.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
-
+import PlaceOrder from './components/PlaceOrder.jsx'
 const App = () => {
 
   return (
@@ -39,8 +39,8 @@ const App = () => {
      <Route path="/Login" element={<><Login/></>}/>
       <Route element={<ProtectedRoutes />}>
           <Route path="/cart" element={<><Nav/><Cart /></>} />
-          {/* <Route path="/checkout" element={<></>} />
-              <Route path="/orders" element={<></>} /> */}
+          <Route path="/order/place" element={<><PlaceOrder/></>} />
+              <Route path="/orders" element={<></>} />
       </Route>
 
 

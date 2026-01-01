@@ -40,7 +40,7 @@ const App = () => {
       <Route element={<ProtectedRoutes />}>
           <Route path="/cart" element={<><Nav/><Cart /></>} />
           <Route path="/order/place" element={<><PlaceOrder/></>} />
-              <Route path="/orders" element={<></>} />
+          <Route path="/orders" element={<></>} />
       </Route>
 
 

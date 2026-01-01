@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { getProdctDetails } from '../controllers/product.controller';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {BACKEND_URL} from "../config/env.js"
 import { addToCart } from '../controllers/cart.controller.js';
+import { useDispatch } from 'react-redux';
+import { updateProduct, updateQuantity } from '../context/order.slice.js';
 
 
 
 const Product = () => {
 const {id} = useParams();
-
 const [Product, setProduct] = useState(null);
 
 //currect varient and images to show
 const [currentVariant, setCurrentVariant] = useState(null)
-const [SelectedImage, setSelectedImage] = useState(null);
 const [currentSize, setCurrentSize] = useState(null);
+
+const [sizeIndex, setSizeIndex] = useState(0)
 const [variantIndex, setVarientIndex] = useState(0);
+
+const [SelectedImage, setSelectedImage] = useState(null);
 const [quantity, setQuantity] = useState(1);
 
+//dispatch function for orderSilce
+const dispatch = useDispatch();
+//navite for place order 
+const navigate = useNavigate()
 
 const fetchProductdetail = async (id)=>{
   if(!id) return console.log("id is missing")
@@ -34,13 +42,10 @@ useEffect(() => {
 (async () =>{
 const productDetail = await fetchProductdetail(id);
 
-
-
 if (productDetail && productDetail.variants.length > 0) {
      const firstVariant = productDetail.variants[0];
       setCurrentVariant(firstVariant);
       // show first image by default 
-      
       setProduct(productDetail);
   } 
 
@@ -49,23 +54,42 @@ if (productDetail && productDetail.variants.length > 0) {
 },[id]);
 
 
-
-
 const handleCart = async ()=>{
   try{
     const cartData = {productId : id, quantity, variantIndex, currentSize}
   const {status, data} = await addToCart(cartData);
  
   if(status === 401) return alert("you need to login beroe add to cart");
-   console.log(data)
+  alert("Item added to cart Successfully")
   }catch(error){
     
      console.log(error);
-
+     
   }
 
 };
 
+
+
+
+ const updateOrderData = ()=>{
+    if(!Product || !id ) return 
+    if(!quantity) return alert("pleas ender quantity first");
+
+    const payload = {
+      product: Product,
+      productId: id,
+      variantIndex,
+      sizeIndex,
+    }
+
+    dispatch(updateProduct(payload));
+    dispatch(updateQuantity(quantity));
+
+    navigate("/order/place")
+    
+
+  }
 
 
 useEffect(() => {
@@ -113,7 +137,9 @@ useEffect(() => {
      <button 
      onClick={handleCart}
      className="w-full flex-1 border rounded-sm border-gray-200 shadow bg-gray-100 font-semibold cursor-pointer hover:bg-primary-1 hover:text-primary-2 hover:scale-110 p-3 text-sm duration-200">Add To Cart</button>
-     <button className="w-full flex-1 font-semibold rounded-sm border-primary-1 bg-primary-1 text-primary-2 cursor-pointer border  hover:scale-110  p-3 text-sm duration-200">BUY NOW</button>
+     <button
+     onClick={updateOrderData}
+      className="w-full flex-1 font-semibold rounded-sm border-primary-1 bg-primary-1 text-primary-2 cursor-pointer border  hover:scale-110  p-3 text-sm duration-200">BUY NOW</button>
    </div>
 
 </div>
@@ -167,8 +193,11 @@ currentVariant?.sizes.length > 0 && <div className="flex py-2">
       {
         currentVariant?.sizes?.map((s, index)=>(
 
-          <button key={crypto.randomUUID}
-          onClick={()=>setCurrentSize(s.size)} 
+          <button key={index}
+
+          onClick={()=>{setCurrentSize(s.size);
+                        setSizeIndex(index)}}
+
            className={` rounded-sm bg-gray-200/70 w-10 h-10 text-xl font-semibold border border-gray-200/70 cursor-pointer ${currentSize === s.size ? "border-gray-800" : ""}`}>
             {s.size}
           </button>

@@ -3,15 +3,16 @@ import { getCartItems } from '../controllers/cart.controller';
 import { Link } from 'react-router-dom';
 import { deleteCartItem } from '../controllers/cart.controller.js';
 
+
 const Cart = () => {
 
 
   const [CartItems, setCartItems] = useState([]);
 
 
+
   const fetchCartItems = async()=>{
     const {cartItems} = await getCartItems();
-    console.log(cartItems)
     setCartItems(cartItems)
   }
 
@@ -30,7 +31,7 @@ const Cart = () => {
   }
   
 
-
+ 
 
   return (
     <div className="w-screen min-h-screen bg-primary-2 p-14 flex justify-center items center text-black ">
@@ -62,9 +63,7 @@ const Cart = () => {
 
                 <div className="flex gap-2 items-center border w-[20%] p-2 rounded border-gray-500">
                <span className="text-gray-500">Rs{item?.variant?.price}</span>
-                <Link to="/order/place" className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
-                BUY
-               </Link>
+              
                 </div>
                 </div>
                <div className="block">
@@ -73,6 +72,9 @@ const Cart = () => {
                 
 
                </Link>
+               <button to="/order/place" className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
+                BUY
+               </button>
                </li>
               ))
             }

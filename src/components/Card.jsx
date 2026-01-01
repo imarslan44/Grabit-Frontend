@@ -16,7 +16,7 @@ const price = variant?.price || variant?.sizes?.[0]?.price;
                 <h2 className="text-gray-s/80 w-full text-sm font-semibold capitalize leading-3 ">{item.title}</h2>
                 <span className="text-gray-s/50 text-xs">Rs{price}</span>
                 </div>
-    </Link>
+     </Link>
   )
 }
 

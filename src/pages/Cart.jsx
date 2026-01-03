@@ -72,9 +72,11 @@ const Cart = () => {
                 
 
                </Link>
+               <Link to={`/product/${item.productId}`} className='relative left-8/9 bottom-2'>
                <button to="/order/place" className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
                 BUY
                </button>
+               </Link>
                </li>
               ))
             }

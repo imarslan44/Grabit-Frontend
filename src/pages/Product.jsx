@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { getProdctDetails } from '../controllers/product.controller';
+import {fetchProductdetail } from '../controllers/product.controller.js';
 import { useNavigate, useParams } from 'react-router-dom';
-import {BACKEND_URL} from "../config/env.js"
 import { addToCart } from '../controllers/cart.controller.js';
 import { useDispatch } from 'react-redux';
 import { updateProduct, updateQuantity } from '../context/order.slice.js';
 
 
 
+
 const Product = () => {
+
 const {id} = useParams();
 const [Product, setProduct] = useState(null);
 
 //currect varient and images to show
-const [currentVariant, setCurrentVariant] = useState(null)
-const [currentSize, setCurrentSize] = useState(null);
+//const [currentVariant, setCurrentVariant] = useState(null)
+//const [currentSize, setCurrentSize] = useState(null);
 
 const [sizeIndex, setSizeIndex] = useState(0)
 const [variantIndex, setVarientIndex] = useState(0);
@@ -22,36 +23,30 @@ const [variantIndex, setVarientIndex] = useState(0);
 const [SelectedImage, setSelectedImage] = useState(null);
 const [quantity, setQuantity] = useState(1);
 
+const currentVariant = Product?.variants?.[variantIndex]
+const currentSize = currentVariant?.sizes?.[sizeIndex]
+
+const price = currentSize?.price || currentVariant?.price;
+
 //dispatch function for orderSilce
 const dispatch = useDispatch();
-//navite for place order 
+
 const navigate = useNavigate()
 
-const fetchProductdetail = async (id)=>{
-  if(!id) return console.log("id is missing")
-    const url = `${BACKEND_URL}/api/product/${id}`
-    const response = await fetch(url);
-    const data = await response.json();
-    const productDetail = data.productDetail
-    return productDetail
-}
+
 
 
 useEffect(() => {
 
 (async () =>{
 const productDetail = await fetchProductdetail(id);
-
-if (productDetail && productDetail.variants.length > 0) {
-     const firstVariant = productDetail.variants[0];
-      setCurrentVariant(firstVariant);
-      // show first image by default 
-      setProduct(productDetail);
-  } 
-
+ setProduct(productDetail);
 })()
 
 },[id]);
+
+
+
 
 
 const handleCart = async ()=>{
@@ -60,13 +55,11 @@ const handleCart = async ()=>{
   const {status, data} = await addToCart(cartData);
  
   if(status === 401) return alert("you need to login beroe add to cart");
-  alert("Item added to cart Successfully")
+  alert(data.message || "something went wrong")
   }catch(error){
     
      console.log(error);
-     
-  }
-
+    }
 };
 
 
@@ -86,9 +79,8 @@ const handleCart = async ()=>{
     dispatch(updateProduct(payload));
     dispatch(updateQuantity(quantity));
 
-    navigate("/order/place")
+    navigate(`/order/place/${id}`)
     
-
   }
 
 
@@ -96,7 +88,9 @@ useEffect(() => {
   
  const firstImage = currentVariant?.images[0]
     setSelectedImage(firstImage);
-}, [currentVariant])
+}, [currentVariant]);
+
+
 
 
 
@@ -107,15 +101,20 @@ useEffect(() => {
 
 {/* image section */}
 <div className='w-full max-md:h-[70vh] md:h-full pr-1 flex-1'>
+
   <div className="w-full  h-full  grid-cols-5 grid grid-rows-8 gap-y-2  md:gap-y-4 md:gap-x-2  pl-1">
 
     
      {/* select image to show */}
       <div className="flex flex-col col-start-1 col-span-full md:col-span-1 md:row-start-1 row-start-6 row-span-2 md:row-span-7 rounded-xs bg-gray-100 ">
+
        {
+
         currentVariant && currentVariant.images.map((image, index)=>(
           <button className="w-1/3 md:w-full h-full  md:h-1/4" key={index} onClick={()=>setSelectedImage(image)}>
+
             <img  src={image} alt="" className="w-full h-full rounded-xs object-cover object-center"/>
+
           </button>
           
         ))
@@ -133,7 +132,7 @@ useEffect(() => {
 
 
 {/* Buy now & Add to cart button */}
-    <div className=" col-start-1 col-span-full flex justify-between gap-6 flex-1 w-full static bottom-4 row-start-8 row-span-1">
+    <div className=" col-start-1 col-span-full flex justify-between gap-6 flex-1 w-full static bottom-4 row-start-8 row-span-1  ">
      <button 
      onClick={handleCart}
      className="w-full flex-1 border rounded-sm border-gray-200 shadow bg-gray-100 font-semibold cursor-pointer hover:bg-primary-1 hover:text-primary-2 hover:scale-110 p-3 text-sm duration-200">Add To Cart</button>
@@ -146,10 +145,10 @@ useEffect(() => {
  </div>
 
   {/* full  text detail of product of other select options */}
-<div className="flex flex-col  flex-1 w-full bg-white p-2 ">
+<div className="flex flex-col  flex-1 w-[40%] bg-gray-100 rounded  p-3 ">
     <h2 className="text-lg font-semibold text-secondary-2/60 tracking-tight uppercase">{"Seller"}</h2>
     <h1 className="font-bold text-2xl tracking-wide pl-3 capitalize">{Product?.title}</h1>
-    <p className=""><span className="text-green-500 text-sm">{Product?.discount == true && `${Product.discount}%`}</span> <span className="text-xl font-bold">rs{ quantity * currentVariant?.price}</span></p>
+    <p className=""><span className="text-green-500 text-sm">{Product?.discount == true && `${Product.discount}%`}</span> <span className="text-xl font-bold font-serif"> <span className="text-gray-700">rs</span> { quantity * price}</span></p>
 
     {/* select color */}
     <div className="flex max-md:flex-col py-3 gap-2">
@@ -163,7 +162,7 @@ useEffect(() => {
           
               <button key={index} 
               onClick={()=>{
-                setCurrentVariant(variant)
+                
                 setVarientIndex(index);
               
               }
@@ -171,7 +170,8 @@ useEffect(() => {
                 className="">
              
               <img src={variant.images?.[0]} alt=" variant tumbnail"
-               className={`border-2   h-24 w-26 rounded-xs onject-center object-cover ${currentVariant?.color === variant.color ? "border-gray-800": "border-white"}`}/>
+               className={`border-2   h-24 w-26 rounded-xs onject-center object-cover cursor-pointer ${currentVariant?.color === variant.color ? "opacity-70": "border-white"}`}/>
+
                 <p className=" text-md font-semibold text-secondary-2/70 text-start">{variant.color}</p>
 
       
@@ -195,10 +195,9 @@ currentVariant?.sizes.length > 0 && <div className="flex py-2">
 
           <button key={index}
 
-          onClick={()=>{setCurrentSize(s.size);
-                        setSizeIndex(index)}}
+          onClick={()=>{setSizeIndex(index)}}
 
-           className={` rounded-sm bg-gray-200/70 w-10 h-10 text-xl font-semibold border border-gray-200/70 cursor-pointer ${currentSize === s.size ? "border-gray-800" : ""}`}>
+           className={` rounded-sm bg-gray-200/70 w-7 h-7 text-xl font-semibold border-2 font-serif border-gray-200/70 cursor-pointer ${currentSize.size === s.size ? "border-gray-600" : ""}`}>
             {s.size}
           </button>
 
@@ -210,7 +209,7 @@ currentVariant?.sizes.length > 0 && <div className="flex py-2">
  {/* set order quantity */}
  <div className="flex gap-2">
    <label className="text-md font-bold text-gray-600" htmlFor="quantity">QUANITY:</label>
-   <input className="w-12 h-6 border-2 border-gray-400 rounded" value={quantity} onChange={(e)=>setQuantity(e.target.value)} type="number" id="quantity" min={1} />
+   <input className="w-9 text-center h-6 font-mono border-2 border-gray-400 rounded" value={quantity} onChange={(e)=>setQuantity(e.target.value)} type="number" id="quantity" min={1} />
  </div>
 
 {/* specs / highlights */}

@@ -16,13 +16,14 @@ import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 import PlaceOrder from './components/PlaceOrder.jsx'
 const App = () => {
 
+ 
   return (
-    <div className="container relative">
+    <div className="container relative  w-screen bg-gray-100">
 <Routes>
      <Route path="/" element={(<>
           <Nav/>
           <Home/>
-          <BestSeller/> 
+          
           <Products/>
           </>)}/>
 

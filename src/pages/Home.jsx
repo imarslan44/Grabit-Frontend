@@ -3,9 +3,9 @@ import { assets } from '../assets/assets'
 const Home = () => {
   return (
     // home page
-    <section id="/" className="w-screen h-screen  flex justify-end px-10  pb-4 pt-16 max-md:h-80 max-md:px-6 max-sm:px-3 max-sm:pb-1">
+    <section id="/" className="w-screen h-screen  flex justify-end   max-md:h-80 max-md:px-6 max-sm:px-3 max-sm:pb-1">
       {/* hero page wraper */}
-      <main className="w-full h-full flex-1 flex bg-primary-2 rounded-lg overflow-hidden ">
+      <main className="w-full h-full flex-1 flex bg-primary-2 overflow-hidden ">
      
       {/* left side / text side */}
       <div className="w-1/2 flex-1 h-full flex justify-center items-center bg-blend-lighten    transition-all duration-400 md:px-10  px-4">

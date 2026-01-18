@@ -1,28 +1,63 @@
 import React from 'react'
 import { assets } from '../assets/assets'
-const Home = () => {
+
+
+ function Home() {
   return (
-    // home page
-    <section id="/" className="w-screen h-screen  flex justify-end   max-md:h-80 max-md:px-6 max-sm:px-3 max-sm:pb-1">
-      {/* hero page wraper */}
-      <main className="w-full h-full flex-1 flex bg-primary-2 overflow-hidden ">
-     
-      {/* left side / text side */}
-      <div className="w-1/2 flex-1 h-full flex justify-center items-center bg-blend-lighten    transition-all duration-400 md:px-10  px-4">
-        <div>
-        <h1 className="md:font-extrabold font-bold md:text-4xl text-black   uppercase">Online <span className="text-lite-1">Market</span>Place
+    <section className="relative w-screen h-screen overflow-hidden bg-white md:p-14 max-md:h-[70vh] max-sm:h-[50vh]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={assets.hero_bg}
+          alt="Hero background"
+          className="h-full w-full  object-cover object-center"
+        />
+      </div>
+
+      {/* Content Overlay */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <div className="max-w-xl">
+          {/* Heading */}
+          <h1 className="text-3xl font-medium tracking-tight leading-tight text-gray-900 md:text-5xl capitalize">
+            Discover Products <br />
+            That Fit Your Life
           </h1>
-        <p className="text-md text-secondary-2/70 max-md:hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat asperiores ab tempora odit quos voluptatum iusto, possimus dicta voluptates eius!</p>
+
+          {/* Description */}
+          <p className="mt-6 text-base text-gray-600 md:text-lg max-sm:hidden">
+            Curated products designed to deliver performance,
+            comfort, and value—no matter what you’re looking for.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-8 flex flex-wrap gap-4 max-sm:flex-col max-sm:w-1/2">
+            <button className="rounded-sm bg-gray-900 px-6 py-2 text-white transition hover:bg-gray-800 cursor-pointer">
+              Shop Now
+            </button>
+            <button className="rounded-sm border border-gray-300 px-6 py-2 text-gray-900 transition hover:bg-gray-100 cursor-pointer">
+              Explore Collection
+            </button>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-700 max-sm:w-2/3  border-t border-gray-300 py-2">
+            <div className="flex items-center gap-2 leading-3">
+              ⭐ <span>4.8/5 from 12,000+ customers</span>
+            </div>
+            <div className="flex items-center gap-2 leading-3">
+              🚚 <span>Fast Delivery</span>
+            </div>
+            <div className="flex items-center gap-2 leading-3">
+              🔒 <span>Secure Checkout</span>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* right side / image side */}
-      <div className=' w-1/2 h-full flex justify-center items-center p-10 '>
-        <img src={assets.hero_image} alt="" />
-      </div>
-       </main>
     </section>
-  )
+  );
 }
 
+
 export default Home
+
+

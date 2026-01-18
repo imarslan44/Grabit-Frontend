@@ -1,47 +1,50 @@
 // src/components/Card.jsx
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Card = ({ styles = '', item }) => {
-
-  const variant = item.variants?.[0]
-  const image = variant?.images?.[0] || item.image || ''
-  const price = variant?.price || variant?.sizes?.[0]?.price || item.price || '—'
+const Card = ({ item, styles }) => {
+  const variant = item?.variants?.[0];
+  const image = variant?.images?.[0] || item.image || "";
+  const price =
+    variant?.price ||
+    variant?.sizes?.[0]?.price ||
+    item.price ||
+    "—";
 
   return (
-    <article className={`bg-white border border-gray-100 hover:shadow max-w-70 relative rounded-xs overflow-hidden ${styles}`}>
-      <Link to={`/product/${item._id}`} className="block">
-        {/* image container keeps aspect ratio and uses object-cover */}
-      
-<div className="w-full overflow-hidden  p-2 ">
-  <img
-    src={image}
-    alt={item.title || 'product'}
-    loading="lazy"
-    className="w-full h-full object-cover block aspect-[4/5] rounded-xs"
-  />
-</div>
+    <Link to={`/product/${item._id}`}>
+      <article
+  className={`mb-2  break-inside-avoid bg-white border border-gray-200/80 rounded-xs overflow-hidden transition-shadow duration-200 hover:shadow-md p-1 ${styles}`}
+>
+  {/* IMAGE */}
+  <div className="w-full aspect-9/8  bg-gray-100 overflow-hidden rounded-sm">
+    <img
+      src={image}
+      alt={item.title}
+      loading="lazy"
+      className="w-full object-cover object-center "
+    />
+  </div>
 
+  {/* CONTENT */}
+  <div className="p-3 space-y-1 ">
+    <h3 className="text-sm font-medium text-gray-900 line-clamp-2">
+      {item.title}
+    </h3>
+    <div className="flex items-center justify-between">
+      <h3>HElll world Lorem ipsum dolor sit amet.</h3>
+      <span className="text-sm font-semibold text-gray-900">₹ {price}</span>
+      {item.category && (
+        <span className="text-xs text-gray-500 capitalize">{item.category}</span>
+        
+      )}
+    </div>
+  </div>
+</article>
 
+    </Link>
+  );
+};
 
-<div className="h-[122%] w-full absolute -bottom-24 hover:-translate-y-24 duration-200 left-0">
-        <div className=" p-2  max-h-1/2 bg-white absolute bottom-0   w-full ">
-          
-          <div className="mt-2   items-center h-13 ">
-            <h3 className="text-md font-semibold text-gray-900 line-clamp-2">{item.title}</h3>
-            <p className="flex justify-between ">
-            <span className="text-xs text-gray-500">Rs {price}</span>
-            <span className="text-xs text-gray-400">{item.category || ''}</span>
-            </p>
-          </div>
-          <div className="h-20">
-          <p className="text-xs text-gray-700">{item.description}</p>
-          </div>
-        </div>
-      </div>
-      </Link>
-    </article>
-  )
-}
+export default Card;
 
-export default Card

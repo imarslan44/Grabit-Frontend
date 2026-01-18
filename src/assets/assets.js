@@ -1,5 +1,4 @@
-import hero_bg from './hero_bg.png';
-import hero_elements from './hero_elements.png';
+
 import logo from './logo.png';
 
 import stationaries from './stationaries.png';
@@ -14,6 +13,7 @@ import diary_3 from "./diary_3.jpg";
 import color_kit_with_brushes_1 from "./color_kit_with_brushes_1.jpg";
 import color_kit_with_brushes_2 from "./color_kit_with_brushes_2.jpg"
 import hero_image from  "./hero_image.jpg"
+import hero_bg from "./hero_bg.jpeg"
 
 
 //best selller products
@@ -63,7 +63,6 @@ export const ProductList = [
 //images assets
  export const assets = {
  hero_bg,
- hero_element: hero_elements,
  logo,
  stationaries,
  hero_image,

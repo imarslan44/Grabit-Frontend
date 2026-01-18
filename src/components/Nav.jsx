@@ -1,82 +1,75 @@
-import React, { useState } from 'react'
-import {assets} from '../assets/assets.js';
-import { NavLink, Link } from 'react-router-dom';
-import Button from './Button.jsx';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { assets } from "../assets/assets";
 
 const Nav = () => {
-  const [ShowSidebar, setShowSidebar] = useState(false);
-  return (
-    <div className="w-screen fixed top-0 left-0 bg-white  flex justify-center z-100">
-    <nav className=" w-[85%]   flex justify-between items-center  p-7 backdrop-blur-sm bg-primary-2     h-12 max-md:px-2 max-md:pr-4 border-b-2 border-gray-300 ">
 
-{/* sidebar */}
-{
-  ShowSidebar && (
-    <aside className='fixed top-14 left-0  bg-black backdrop-blur-lg  flex flex-col p-8 max-md:w-4/5 z-100 md:hidden rounded-sm'>
-      {/* close button */}
-      <button 
-      onClick={() => setShowSidebar(false)} 
-      className="text-white self-end mb-8 ">
-        <ion-icon name="close-outline" className=" text-white scale-200 "></ion-icon>
-      </button>
-      {/* nav list */}
-      <ul className=" flex flex-col space-y-8 text-white font-semibold cursor-pointer text-lg bg-black/90 ">
-          <NavLink to="/" className={({isActive})=>isActive? " bg-lite-1 p-2": "p-2"} end>HOME</NavLink>
-          <NavLink to="/products" className={({isActive})=>isActive? "underline text-lite-1": ""}>PRODUCTS</NavLink>
-          <NavLink to="/about" className={({isActive})=>isActive ? "underline text-lite-1": ""}>ABOUT</NavLink>
-          <NavLink to="/contact" className={({isActive})=>isActive? "underline text-lite-1": "text-black"}>CONTACT</NavLink>
-          
-      </ul>
-    </aside>
-  )
-}
-       
-{/* menu button */}
-        
-         {/* logo */}
-        <div id="logo" className=' h-12 rounded-sm overflow-hidden flex justify-center items-center  max-md:w-20 max-md:h-10'>
-            <img src={assets.logo} alt="" className="w-full h-full object-cover "/>
-        </div>
-        {/* nav list */}
-        <nav className=" flex space-x-8 text-black font-semibold cursor-pointer text-lg max-md:hidden  w-[60%]">
-            <NavLink to="/" className={({isActive})=>isActive ? " bg-lite-1 px-3 p-1 rounded text-white ": "px-3 p-1"} end>HOME</NavLink>
-          <NavLink to="/products" className={({isActive})=>isActive ? " bg-lite-1 px-3 p-1 rounded text-white ": "px-3 p-1"} >PRODUCTS</NavLink>
-          {/* search bar */}
-          <div id="search-inout" className="w-[60%] bg-gray-100/10  rounded-xs border-b-2 p-1">
-            <input type="search" placeholder='SEARCH PRODUCTS...' className="
-            w-[90%]  h-full  focus:border-b-2 outline-none" />
-            <button className="w-1/10 text-2xl h-9/10 ">
-              <ion-icon name="search-outline"></ion-icon>
+  
+  return (
+    <header className="fixed top-0 left-0 w-full bg-white border-b border-gray-200 z-50">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="h-16 flex items-center justify-between gap-6">
+
+          {/* LEFT */}
+          <div className="flex items-center gap-4 ">
+            <button className="text-2xl text-gray-700 flex items-baseline cursor-pointer">
+              <ion-icon name="menu-outline"></ion-icon>
             </button>
 
+            <NavLink to="/" className="flex items-baseline font-serif text-gray-800 gap-2 font-semibold max-md:hidden">
+              {/* <img
+                src={""}
+                alt="Logo"
+                className="h-6 w-auto object-contain"
+              /> */} <h2>GrabIt</h2>
+            </NavLink>
           </div>
-         
-          
-        </nav>
 
-        {/* Signin SignUp */}
-        <div className="flex gap-5">
-          <button className="h-full p-3">
-           <NavLink to="/orders" className={({isActive})=>isActive ? " bg-lite-1 px-3 p-1 rounded text-white  ": "px-3 p-1  "}>
-             ORDERS
-           </NavLink>
-          </button>
+          {/* CENTER SEARCH */}
+          <div className="flex-1 flex justify-center items-center  ">
+            <div className="w-full max-w-xl relative ">
+              <label htmlFor="search" className="absolute right-2 top-1/2 -translate-y-1/2 text-black text-lg">
+                <ion-icon name="search-outline"></ion-icon>
+              </label>
 
-          <NavLink to="/cart" className={({isActive})=>isActive ? " bg-lite-1 px-3 p-1 rounded text-white ": "px-3 p-1"}><ion-icon name="cart-outline" className=" h-full flex justify-center items-center text-black w-8 "></ion-icon>
-          </NavLink>
+              <input id="search"
+                type="text"
+                placeholder="Search..."
+                className="w-full  h-8 pr-11 pl-2 focus:border  rounded-full  text-sm
+                           placeholder-gray-500    focus:outline-none max-sm:w-10 max-sm:focus:w-60 duration-200"
+              />
+            </div>
+          </div>
 
-          <NavLink to={"/login"} className="h-full p-3 flex justify-center items-center">
-            <Button styles="bg-black ring " content={"Login"}></Button>
-          </NavLink>
-       <button id="menu" className="text-whtie md:hidden translate-y-0.5" onClick={()=>setShowSidebar(()=>!ShowSidebar)}>
-          <ion-icon name="menu-outline" className=" text-white scale-220  "></ion-icon>
-        </button>
+          {/* Pages Urls*/}
+          <ul className="flex px-10 gap-6 items-center">
+
+            <NavLink to="/" className="flex items-baseline text-xl gap-1">
+            <ion-icon name="home-outline"></ion-icon> <li className="max-sm:hidden"> Home</li></NavLink>
+            <NavLink to="/products" className="flex items-center gap-1 max-sm:h-16 ">
+            <li className="">Products</li></NavLink>
+
+          </ul>
+
+          {/* RIGHT ICONS */}
+          <div className="flex items-center gap-5 text-xl text-gray-700">
+            <NavLink to="/wishlist">
+              <ion-icon name="heart-outline"></ion-icon>
+            </NavLink>
+
+            <NavLink to="/cart">
+              <ion-icon name="bag-outline"></ion-icon>
+            </NavLink>
+
+            <NavLink to="/profile">
+              <ion-icon name="person-outline"></ion-icon>
+            </NavLink>
+          </div>
+
         </div>
-        
-     
-    </nav>
-  </div>
-  )
-}
+      </div>
+    </header>
+  );
+};
 
-export default Nav
+export default Nav;

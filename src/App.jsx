@@ -14,6 +14,8 @@ import Login from './pages/Login.jsx'
 import Cart from './pages/Cart.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 import PlaceOrder from './components/PlaceOrder.jsx'
+import Footer from './components/Footer.jsx'
+
 const App = () => {
 
  
@@ -47,7 +49,7 @@ const App = () => {
 
    
   </Routes>
-
+<Footer/>
     </div>
   )
 }

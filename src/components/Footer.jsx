@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border-t w-screen border-gray-200 text-gray-700 md:px-16">
+    <footer className="bg-gray-100 border-t w-screen border-gray-200 text-gray-700 md:px-16">
 
       {/* TOP SECTION */}
-      <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-3 py-12 grid gap-10 md:grid-cols-3">
 
         {/* Customer Service */}
         <div>
@@ -40,13 +40,13 @@ export default function Footer() {
             Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
           </p>
 
-          <div className="flex w-full max-w-xs overflow-hidden rounded-sm border border-gray-300">
+          <div className="flex max-lg:w-60 max-w-xs overflow-hidden rounded-sm border border-gray-300">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-2 text-sm focus:outline-none"
+              className="flex-1 w-full px-4 py-2 text-sm focus:outline-none"
             />
-            <button className="bg-orange-500 px-6 text-sm font-medium text-white hover:bg-orange-600">
+            <button className="bg-orange-500 md:px-6 px-2 text-xs font-medium   text-white w-[35%] hover:bg-orange-600 ">
               Subscribe
             </button>
           </div>

@@ -15,35 +15,36 @@ import Cart from './pages/Cart.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 import PlaceOrder from './components/PlaceOrder.jsx'
 import Footer from './components/Footer.jsx'
-
+import productlist from './components/productlist.jsx'
+import Productlist from './components/productlist.jsx'
+import Orders from './pages/Orders.jsx'
 const App = () => {
 
  
   return (
-    <div className="container relative  w-screen bg-gray-100">
+    <div className="container w-screen relative max-sm:overflow-hidden">
+      <Nav/>
 <Routes>
      <Route path="/" element={(<>
-          <Nav/>
-          <Home/>
           
-          <Products/>
+          <Home/>
+          <Productlist/>
           </>)}/>
 
-     <Route path={"/product/:id"} element={<><Nav/><Product/></>}/>
+     <Route path={"/product/:id"} element={<><Product/><Productlist/></>}/>
      <Route path={"/products"} element={
        <>
-       <Nav></Nav>
+       
        <Products/>
        </>}/>
-     <Route path="/about" element={<>
-       <Nav></Nav>
-       <About/></>}/>
-     <Route path="/contact" element={<><Nav/><Contact/></>}/>
+     {/* <Route path="/about" element={<><About/></>}/>
+     <Route path="/contact" element={<><Nav/><Contact/></>}/> */}
      <Route path="/Login" element={<><Login/></>}/>
+
       <Route element={<ProtectedRoutes />}>
-          <Route path="/cart" element={<><Nav/><Cart /></>} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/order/place/:id" element={<><PlaceOrder/></>} />
-          <Route path="/orders" element={<></>} />
+          <Route path="/orders" element={<><Orders/></>} />
       </Route>
 
 

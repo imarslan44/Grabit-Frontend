@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchProductdetail } from "../controllers/product.controller.js";
 import { addToCart } from "../controllers/cart.controller.js";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +6,20 @@ import { useDispatch } from "react-redux";
 import { updateProduct, updateQuantity } from "../context/order.slice.js";
 
 const Product = () => {
+  //scrollable image  for mobile
+  const [activeIndex, setActiveIndex] = useState(0); 
+  const sliderRef = useRef(null); 
+  
+  const handleScroll = () => { 
+    const scrollLeft = sliderRef.current.scrollLeft; 
+    const width = sliderRef.current.offsetWidth;
+    const index = Math.round(scrollLeft / width); 
+     setActiveIndex(index); 
+    };
+  const scrollToIndex = (index) => {
+     const width = sliderRef.current.offsetWidth; 
+     sliderRef.current.scrollTo({ left: width * index, behavior: "smooth", }); setActiveIndex(index); 
+  };
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -64,36 +78,42 @@ const Product = () => {
   };
 
   return (
-    <section className="w-screen pt-18 px-2 md:px-10 bg-gray-50 min-h-screen flex flex-col md:flex-row gap-8">
+    <section className="w-screen pt-18 pb-1 px-1 md:px-5 bg-gray-50 min-h-screen flex flex-col lg:flex-row gap-8">
 
       {/* IMAGE SECTION */}
-      <div className="w-full md:w-1/2 h-[40vh] md:h-[85vh]">
+      <div className="w-full md:h-[85vh]  lg:w-3/8   ">
+    {/* mobile image section slider */}
+        <div className="md:hidden relative h-full"> 
+            <div ref={sliderRef} onScroll={handleScroll} className="overflow-x-auto flex gap-1 snap-x snap-mandatory rounded-sm scrollbar-hide" > 
+            {currentVariant?.images?.map((img, i) => 
+              ( 
+               <div key={i} className="min-w-full rounded-xs  h-65  overflow-hidden snap-center bg-gray-100 flex" > 
+                 <img src={img} alt="" className="w-full h-full object-contain object-center rounded-sm" /> 
+              </div> 
+            ))}
+           </div> {/* Dots */}
+      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex space-x-2">
+        {currentVariant?.images?.map((_, i) => (
+          <button key={i} onClick={() => scrollToIndex(i)}
+            className={`h-2 w-2 rounded-full transition-colors ${
+              i === activeIndex ? "bg-gray-800" : "bg-gray-400"
+            }`}
+          />
+        ))}
+      </div>
+      </div>
 
-        {/* MOBILE SLIDER */}
-        <div className="md:hidden h-full overflow-hidden overflow-x-auto flex snap-x snap-mandatory rounded-sm">
-          {currentVariant?.images?.map((img, i) => (
-            <div
-              key={i}
-              className="min-w-full h-9/10 snap-center bg-gray-100 flex "
-            >
-              <img
-                src={img}
-                alt=""
-                className="w-full h-full object-contain object-center rounded-sm"
-              />
-            </div>
-          ))}
-        </div>
 
         {/* DESKTOP THUMBNAILS */}
-        <div className="hidden md:grid h-full grid-cols-5 gap-4">
+        <div className="hidden md:grid h-full grid-cols-5 gap-4 grid-rows-5">
 
-          <div className="col-span-1 flex flex-col gap-3">
+          <div className="col-span-5 row-start-5    flex gap-3">
+
             {currentVariant?.images?.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setSelectedImage(img)}
-                className={`border rounded-md overflow-hidden ${
+                className={`border aspect-3/3 rounded-xs overflow-hidden ${
                   selectedImage === img
                     ? "border-black"
                     : "border-gray-300"
@@ -102,13 +122,13 @@ const Product = () => {
                 <img
                   src={img}
                   alt=""
-                  className="w-full h-24 object-cover"
+                  className="lg:w-full md:w-25  h-25 object-cover"
                 />
               </button>
             ))}
           </div>
 
-          <div className="col-span-4 bg-gray-100 rounded-lg overflow-hidden">
+          <div className=" row-span-4 col-start-1 row-start-1 col-span-5 bg-gray-100 rounded-sm overflow-hidden">
             <img
               src={selectedImage}
               alt=""
@@ -119,7 +139,7 @@ const Product = () => {
       </div>
 
       {/* PRODUCT DETAILS */}
-      <div className="w-full md:w-[45%] bg-white rounded-lg p-4 md:p-6 shadow-sm">
+      <div className="w-full flex-1 bg-white rounded-sm p-3 md:p-6 shadow-xs mb-2">
 
         <p className="text-xs uppercase text-gray-500">Seller</p>
         <h1 className="text-2xl font-semibold mt-1">
@@ -134,7 +154,7 @@ const Product = () => {
               <button
                 key={i}
                 onClick={() => setVariantIndex(i)}
-                className={`border rounded-md overflow-hidden ${
+                className={`border rounded-sm overflow-hidden ${
                   variantIndex === i
                     ? "border-black"
                     : "border-gray-300"

@@ -25,13 +25,7 @@ form input{
 
 
 /*direct html modification  */
-html, body, #root {
-  /* margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  scroll-behavior: smooth; */
-  
-}
+
 
 ::-webkit-scrollbar{
 width: 0;
@@ -46,9 +40,7 @@ position: fixed;
   width: 8px;
 }
 
-html, body{
-   
-}
+
 
 .container{
 width: 100vw;
@@ -121,4 +113,11 @@ width: 100vw;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* hide scroll bar in  */
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none; } 
+  .scrollbar-hide {
+     -ms-overflow-style: none; 
+     /* IE/Edge */ scrollbar-width: none; /* Firefox */ }
 

@@ -30,8 +30,6 @@ export const getCartItems = async () =>{
     credentials: "include"
    });
    const data = await response.json();
-  console.log(response)
-  console.log("data: ", data)
    const status = response.status
    
   if(status === 401){

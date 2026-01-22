@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const url = `${BACKEND_URL}/api/user/sign-in`;
+      const url = `${BACKEND_URL}/api/auth/sign-in`;
       const { email, password } = formData;
 
       const res = await fetch(url, {

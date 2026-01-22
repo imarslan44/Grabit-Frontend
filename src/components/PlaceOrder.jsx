@@ -94,16 +94,16 @@ const PlaceOrder = () => {
     const inputStyles = `w-full text-2xl row-span-1 uppercase col-start-1 px-2  col-span-2 font-semibold   rounded-sm `
 
   return (
-    <section className="w-screen h-screen flex bg-primary-2  relative">
+    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15">
         {/* Address section */}
-       <section className='w-full flex-1 p-10 bg-gray-900 flex justify-center items-center'>
+       <section className='w-screen flex-1 md:p-10 bg-gray-900 flex justify-center items-center'>
 
         <button 
         onClick={()=>navigate(`/product/${productId}`)}
-        className=" rounded-xs shadow text-2xl  absolute top-10 left-10 text-gray-200 hover:text-white cursor-pointer"><ion-icon name="arrow-back-outline"></ion-icon>
+        className=" rounded-xs text-2xl  absolute top-17 left-5  text-gray-600 hover:text-white cursor-pointer"><ion-icon name="arrow-back-outline"></ion-icon>
         </button>
            
-          <form action="" className="w-[80%] h-[80%] p-6 shadow bg-white grid grid-cols-2  grid-rows-7 gap-2 rounded">
+          <form action="" className="  w-full max-w-xl  h-full md:w-[80%] lg:h-[80%]  p-6  max-lg:px-10 shadow bg-white grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
          <h1 className="text-xl  uppercase tracking-wide text-gray-  flex items-center  ">ADRESS</h1>
 
             <input
@@ -145,7 +145,7 @@ const PlaceOrder = () => {
         </section> 
 
         {/* Order detail section */}
-        <section className="w-full flex-1  bg-primary-2 flex flex-col justify-center items-center m-12 rounded shadow">
+        <section className="w-full flex-1  bg-primary-2 flex flex-col justify-center items-center p-4 mb-2 rounded shadow">
           {/* product card*/}
           <div className="grid grid-cols-7  rounded-xs mt-10 mx-auto    gap-2 p-4">
           

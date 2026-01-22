@@ -29,20 +29,22 @@ const Cart = () => {
     }
 
   }
-  
+  console.log(CartItems?.length)
 
  
 
   return (
-    <div className="w-screen min-h-screen bg-primary-2 p-14 flex justify-center items center text-black ">
+    <div className="w-screen min-h-screen bg-gray-100 pt-16 px-1 md:px-14  justify-center items center text-black ">
       {/* header */}
-      
+          <header className="bg-gray-800 rounded  text-primary-2 uppercase font-semibold text-lg p-2 w-full"><h1> Items In cart </h1></header>
       {
         CartItems !== "" ? (
           // cart list
-          <ul className="w-full h-full flex flex-col">
-            <header className="bg-black  text-primary-2 uppercase font-semibold text-lg p-2 w-1/2 max-md:w-full"><h1> Items In cart </h1></header>
-          
+          <ul className="w-screen h-full flex flex-col justify-center  ">
+
+        
+
+           {CartItems?.length == 0 && <h1 className="text-gray-700 p-20 text-xl font-semibold">NO items in cart... </h1>}
             {
            CartItems?.length > 0 &&  CartItems.map((item)=>(
             <li key={item._id} className="flex flex-col bg-primary-2 rounded my-1 shadow-md w-1/2 max-md:w-full p-3 max-md:scale-90 relative pt-9">

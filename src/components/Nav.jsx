@@ -62,7 +62,7 @@ const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
             <NavLink to="/cart"
              className={({ isActive }) => `flex items-center md:gap-1 text-gray-700 ${ isActive ? "text-orange-300 " : "" }` } >
-              <ion-icon name="bag-outline"></ion-icon>
+              <ion-icon name="cart-outline"></ion-icon>
             </NavLink>
 
             <NavLink to="/profile"
@@ -76,9 +76,12 @@ const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
       </div>
 {/* sidebar */}
 
-      <aside className={`bg-lime-400/20 backdrop-blur-sm   md:block w-full fixed top-14 left-0 h-screen border-r border-gray-200 ${isSidebarOpen? "left-0 opacity-100": "scale-0 opacity-50"}  md:static md:w-auto transition-all duration-800 ease-in-out z-50`}>
-        <ul className="bg-white w-48 flex flex-col h-full gap-4 p-4 text-gray-700  text-sm font-medium shadow">
-          <a href={"/"} target="_blank" >Become a Seller</a>
+      <aside onClick={()=>setIsSidebarOpen(false)}
+
+       className={`bg-lime-400/20 backdrop-blur-sm   md:block  fixed top-14 h-screen border  border-gray-200 ${isSidebarOpen ? "opacity-100 w-screen" : " w-0 opacity-50"}  md:static  transition-all duration-200 ease-in-out z-50 overflow-hidden`}>
+
+        <ul className="bg-white w-52 flex flex-col h-full gap-4 p-4 text-gray-700  text-sm font-medium shadow ">
+          <a href={"http://localhost:3000"} target="_blank">Become a Seller </a>
           <NavLink to="/orders">Orders</NavLink>
           <NavLink to="/login">Logout</NavLink>
         </ul>

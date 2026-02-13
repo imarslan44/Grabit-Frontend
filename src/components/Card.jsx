@@ -20,12 +20,12 @@ const Card = ({ item, styles }) => {
         className={`mb-2 break-inside-avoid bg-white border-1 border-gray-200/50 rounded-sm overflow-hidden  duration-200 transition-all  hover:shadow-md hover:border-gray-200 hover:border-2 p-1 ${styles}`}
       >
         {/* IMAGE */}
-        <div className="w-full aspect-9/8 bg-gray-100 overflow-hidden rounded-sm">
+        <div className="w-full h-45  bg-white overflow-hidden rounded-sm object-contain">
           <img
             src={image}
             alt={item.title}
             loading="lazy"
-            className="w-full object-cover object-center"
+            className="w-full h-full   object-contain object-center"
           />
         </div>
 

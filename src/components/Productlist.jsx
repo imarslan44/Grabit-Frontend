@@ -30,6 +30,14 @@ const Productlist = () => {
        }
     };
  
+    const DeleteProduct = async(id)=>{
+      try{
+        const URL = `${BACKEND_URL}/api/product/delete/${id}`
+
+      }catch(err){
+        console.log(err)
+      }
+    }
    useEffect(() => {
     const controller = new AbortController();
      fetchProducts(controller);

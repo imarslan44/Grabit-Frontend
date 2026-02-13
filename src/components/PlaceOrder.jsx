@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateProduct, updateQuantity, updateAddress } from '../context/order.slice'
 import { fetchProductdetail } from '../controllers/product.controller.js'
@@ -18,6 +18,19 @@ const PlaceOrder = () => {
     pinCode: "",
     saveAddress: false,
   })
+
+  const [savedAddress, setSavedAddress] = useState({
+    firstName: "",
+    lastName:"",
+    phone: "",
+    city: "",
+    street: "",
+    landMark: "",
+    pinCode: "",
+    saveAddress: false,
+  })
+  const [showAddressFOrm, setShowAddressFOrm] = useState(false)
+
   const {product, productId, variantIndex, sizeIndex, quantity} = useSelector((state)=>state.order);
   const dispatch = useDispatch()
 
@@ -28,8 +41,9 @@ const PlaceOrder = () => {
   const price = currentSize?.price || currentVarient?.price
   
 
-  const shippingFee = 30
-  const isCOD = product?.COD || false
+  const shippingFee = 30;
+  
+  const isCOD = product?.delivery?.COD || false
 
   const navigate = useNavigate()
   const {id} = useParams();
@@ -46,7 +60,6 @@ const PlaceOrder = () => {
       sizeIndex : sizeIndex || 0,
     }
 
-  
   dispatch(updateProduct(payload))
   })()
   },[id]);
@@ -88,14 +101,22 @@ const PlaceOrder = () => {
    }
   }
 
+  const saveAdressFunc = ()=>{
+    let copyAddresState = {...address};
+    setSavedAddress(copyAddresState);
+    setShowAddressFOrm(false)
+
+  }
+
   
 
 
     const inputStyles = `w-full text-2xl row-span-1 uppercase col-start-1 px-2  col-span-2 font-semibold   rounded-sm `
 
   return (
-    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15">
+    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15  justify-center">
         {/* Address section */}
+        { showAddressFOrm &&
        <section className='w-screen flex-1 md:p-10 bg-gray-900 flex justify-center items-center'>
 
         <button 
@@ -103,8 +124,8 @@ const PlaceOrder = () => {
         className=" rounded-xs text-2xl  absolute top-17 left-5  text-gray-600 hover:text-white cursor-pointer"><ion-icon name="arrow-back-outline"></ion-icon>
         </button>
            
-          <form action="" className="  w-full max-w-xl  h-full md:w-[80%] lg:h-[80%]  p-6  max-lg:px-10 shadow bg-white grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
-         <h1 className="text-xl  uppercase tracking-wide text-gray-  flex items-center  ">ADRESS</h1>
+         <form action="" className="w-full max-w-xl  h-full md:w-[80%] lg:h-[80%]  p-6  max-lg:px-10 shadow bg-white grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
+         <h1 className="text-xl  uppercase tracking-wide text-gray-  flex items-center">ADRESS</h1>
 
             <input
             onChange={handleAddress} value={address.firstName}
@@ -136,27 +157,41 @@ const PlaceOrder = () => {
             type="text" name="landMark" placeholder='LAND MARK' 
             className={inputStyles}/>
          
-
+<div className="w-full flex gap-3 col-start-1 col-span-full justify-between">
+  
             <button type="button"
-             className=" col-start-1 col-span-2 md:col-span-2    bg-gray-800 text-white font-semibold rounded-sm  transition cursor-pointer">
+             className="     border border-gray-800 text-gray-800  rounded-xs px-2  transition cursor-pointer">
+              Save as permanent Address
+            </button>
+             <button
+             onClick={saveAdressFunc}
+              type="button"
+             className="bg-gray-800 text-white  rounded-xs px-2  transition cursor-pointer">
               Save Address
             </button>
+</div>
           </form>
+
+       
+
         </section> 
+}
 
         {/* Order detail section */}
-        <section className="w-full flex-1  bg-primary-2 flex flex-col justify-center items-center p-4 mb-2 rounded shadow">
+        <section className="w-1/2 bg-amber-50    flex flex-col justify-center items-center p-4 mb-2 rounded shadow">
           {/* product card*/}
-          <div className="grid grid-cols-7  rounded-xs mt-10 mx-auto    gap-2 p-4">
+          <div className="grid grid-cols-7  w-full   mt-10 mx-auto    gap-1 p-4 border-b border-gray-100">
           
              <img src={currentVarient?.images[0]} alt="" className="rounded-xs object-cover object-center col-start-1 col-span-2 w-26 h-26 row-span-1 border"/>
              <div className="w-full col-start-3 col-span-full row-span-1 ">
-              <h2 className="w-full text-2xl font-bold text-gray-700 tracking-wide capitalize font-serif">{product?.title}</h2>
-              <p className="flex gap-4 text-gray-700 py-3">
+
+              <h2 className="w-full text-xl  text-gray-700 tracking-tight capitalize font-serif">{product?.title}</h2>
+
+              <p className="flex gap-4 text-gray-700 py-3 border-b">
 
                { currentSize && <span>SIZE <span className="bg-gray-300 rounded-xs text-lg font-semibold h-6 w-6 inline-flex translate-0.5 justify-center items-center text-gray-900 font-serif">{currentSize?.size}</span></span> }
 
-                <span>QUANTITY
+                <span>QUANTITY :
                 <span><input type="number"
                 value={quantity}
                 min={1}
@@ -166,7 +201,7 @@ const PlaceOrder = () => {
                 </span>
 
                 <span className=" rounded-xs  ">
-                PRICE__
+                PRICE :
                 <span className="font-semibold text-gray-900 font-serif pl-1">
                   rs {price}.
                 </span>
@@ -174,20 +209,31 @@ const PlaceOrder = () => {
                
                </p>
              </div>
-             <p className="w-full col-start-1 col-span-full text-gray-600 tracking-tight text-md font-normal">{product?.description}</p>
+             <div className="w-full col-start-1 col-span-full font-semibold relative pt-2">
+              <button onClick={()=>setShowAddressFOrm(true)}
+              className="text-blue-800 absolute top-2 right-3 cursor-pointer"><ion-icon name="create-outline"></ion-icon>Edit</button>
+
+              <h2>Order Address</h2>
+             <div className="w-full col-start-1 col-span-full text-gray-600 tracking-tight text-md font-normal flex flex-wrap text-start justify-baseline gap-1 ">
+
+              <span>{savedAddress.firstName  + " " + savedAddress.lastName },</span>
+               {savedAddress.phone },  {savedAddress.city}, {savedAddress.street}, <br />  {savedAddress.landMark},<span>{savedAddress.pinCode}.</span>
+
+             </div>
+             </div>
           </div>
 
 {/* Total subTotal */}
-         <div  className='m-auto flex w-full flex-col pr-10 items-end'>
-          <div>
+         <div  className='m-auto flex w-full flex-col  items-end px-6'>
+        
           <div className="w-full flex-1 text-lg font- flex items-end  flex-col gap-2 text-gray-800 font-serif">
-            <h1>Subtotal__________ .<span className='font-serif inline-block min-w-20 bg-gray-100 text-end '>{price * quantity}</span></h1>
-            <h2>Shipping__________.<span className='font-serif inline-block min-w-20 bg-gray-100 text-end'>{shippingFee}</span></h2>
+            <h1 className="flex justify-between w-full">Subtotal__________ .<span className='font-serif inline-block min-w-20 bg-gray-100 text-start '>Rs {price * quantity}</span></h1>
+            <h2 className="flex justify-between w-full">Shipping__________.<span className='font-serif inline-block min-w-20 bg-gray-100 text-start'>Rs {shippingFee}</span></h2>
 
-            <h3 className="text-xl font-bold text-black ">Total_________ .<span className='font-serif inline-block min-w-20 bg-gray-100 text-end '>rs {shippingFee + (price * quantity)}</span>
+            <h3 className="flex justify-between w-full">Total____________.<span className='font-serif inline-block min-w-20 bg-gray-100 text-start '>Rs {shippingFee + (price * quantity)}</span>
             </h3>
 
-          </div>
+       
 
           {/* payment mode */}
           <div>

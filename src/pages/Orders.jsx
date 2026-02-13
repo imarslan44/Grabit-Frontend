@@ -60,6 +60,51 @@ const Orders = () => {
 }
 
 export default Orders
+const StatusBadge = ({ status }) => {
+  const s = status?.toLowerCase()
+
+  const config = {
+    placed: {
+      icon: 'receipt-outline',
+      class: 'bg-blue-100 text-blue-700',
+    },
+    processing: {
+      icon: 'time-outline',
+      class: 'bg-indigo-100 text-indigo-700',
+    },
+    delivered: {
+      icon: 'checkmark-circle-outline',
+      class: 'bg-green-100 text-green-700',
+    },
+    cancelled: {
+      icon: 'close-circle-outline',
+      class: 'bg-red-100 text-red-700',
+    },
+    returned: {
+      icon: 'arrow-undo-circle-outline',
+      class: 'bg-orange-100 text-orange-700',
+    },
+  }
+
+  const current = config[s] || {
+    icon: 'help-circle-outline',
+    class: 'bg-gray-100 text-gray-600',
+  }
+
+  return (
+    <span
+      className={`
+        inline-flex items-center gap-2
+        px-3 py-1 rounded-full
+        text-xs font-semibold capitalize
+        ${current.class}
+      `}
+    >
+      <ion-icon name={current.icon} class="text-sm"></ion-icon>
+      {s}
+    </span>
+  )
+}
 
 
 
@@ -94,7 +139,7 @@ const canReturn = (status) =>
         method: 'PATCH',
         credentials: 'include',
       })
-      window.location.reload()
+      window.location.reload();
     } catch (err) {
       console.error(err)
     } finally {
@@ -147,22 +192,10 @@ const canReturn = (status) =>
           </span>
         </p>
 
-        <p className="text-sm">
-          Status:{' '}
-          <span
-            className={`font-semibold capitalize ${
-              status === 'delivered'
-                ? 'text-green-600'
-                : status === 'cancelled'
-                ? 'text-red-600'
-                : status === 'returned'
-                ? 'text-orange-600'
-                : 'text-blue-600'
-            }`}
-          >
-            {status}
-          </span>
-        </p>
+        <div className="flex items-center gap-2">
+  <span className="text-sm text-gray-500">Status:</span>
+  <StatusBadge status={status} />
+</div>
 
         <p className="text-sm">
           Payment:{' '}

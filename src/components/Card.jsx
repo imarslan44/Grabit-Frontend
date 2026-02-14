@@ -17,10 +17,10 @@ const Card = ({ item, styles }) => {
       onClick={() => window.scrollTo(0, 0)}
     >
       <article
-        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-200/50 rounded-sm overflow-hidden  duration-200 transition-all  hover:shadow-md hover:border-gray-200 hover:border-2 p-1 ${styles}`}
+        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-200/50 rounded-sm overflow-hidden  duration-200 transition-all  hover:shadow-md hover:border-gray-200  p-1 ${styles}`}
       >
         {/* IMAGE */}
-        <div className="w-full h-45  bg-white overflow-hidden rounded-sm object-contain">
+        <div className="w-full h-45 bg-white overflow-hidden rounded-sm object-contain">
           <img
             src={image}
             alt={item.title}

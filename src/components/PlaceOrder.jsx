@@ -44,6 +44,7 @@ const PlaceOrder = () => {
   const shippingFee = 30;
   
   const isCOD = product?.delivery?.COD || false
+  const [CODSelected, setCODSelected] = useState(false)
 
   const navigate = useNavigate()
   const {id} = useParams();
@@ -51,7 +52,6 @@ const PlaceOrder = () => {
   useEffect(() => {
     if(product) return
   (async () =>{
-    console.log("running async fetch")
   const productDetail = await fetchProductdetail(id);
   const payload = {
       product: productDetail,
@@ -83,13 +83,13 @@ const PlaceOrder = () => {
         variantIndex,
         quantity,
         sizeIndex,
-        address,
+        savedAddress,
         shipping: shippingFee,
         ammount : (quantity * price) + shippingFee,
       };
   
   // validate the address in two steps
-  const inValidAddress = !address.firstName || !address.lastName || !address.city || !address.pinCode || !address.pinCode || !address.street || !address.landMark || false;
+  const inValidAddress = !savedAddress.firstName || !savedAddress.lastName || !savedAddress.city || !savedAddress.pinCode || !savedAddress.pinCode || !savedAddress.street || !savedAddress.landMark || false;
   if(inValidAddress) return alert("pleas enter address before");
 
 
@@ -101,7 +101,8 @@ const PlaceOrder = () => {
    }
   }
 
-  const saveAdressFunc = ()=>{
+  const saveAdressFunc = (e)=>{
+    e.preventDefault()
     let copyAddresState = {...address};
     setSavedAddress(copyAddresState);
     setShowAddressFOrm(false)
@@ -114,46 +115,65 @@ const PlaceOrder = () => {
     const inputStyles = `w-full text-2xl row-span-1 uppercase col-start-1 px-2  col-span-2 font-semibold   rounded-sm `
 
   return (
-    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15  justify-center">
+    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15  justify-center ">
+      {/* Back btn */}
+
+   <button onClick={()=>navigate(`/product/${productId}`)}
+       className="p-3  absolute top-18 left-10  rounded text-black text-xl cursor-pointer  z-91">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+      </button>
+    
         {/* Address section */}
         { showAddressFOrm &&
-       <section className='w-screen flex-1 md:p-10 bg-gray-900 flex justify-center items-center'>
+       <section className={` max-sm:absolute max-sm:h-screen w-screen flex-1 md:p-10 bg-amber-50 flex justify-center items-center relative border-r-1 border-gray-300 top-0  transition-all duration-800 left-0 z-90  ${showAddressFOrm ? "left-0" : "-left-full" }`}>
 
-        <button 
-        onClick={()=>navigate(`/product/${productId}`)}
-        className=" rounded-xs text-2xl  absolute top-17 left-5  text-gray-600 hover:text-white cursor-pointer"><ion-icon name="arrow-back-outline"></ion-icon>
+        <button onClick={()=>setShowAddressFOrm(false)}
+         className="max-md:absolute  left p-1 px-2 text-black absolute max-sm:top-16 top-3 right-2 bg-white cursor-pointer rounded-sm hover:shadow border border-gray-200  ">
+         Close 
         </button>
            
-         <form action="" className="w-full max-w-xl  h-full md:w-[80%] lg:h-[80%]  p-6  max-lg:px-10 shadow bg-white grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
-         <h1 className="text-xl  uppercase tracking-wide text-gray-  flex items-center">ADRESS</h1>
+         <form onSubmit={saveAdressFunc} action="" className="w-full max-w-xl max-sm:h-4/7 h-full md:w-[80%] lg:h-[80%]   py-6 px-3 md:px-10  bg-white  shadow grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
+         <h1 className="text-2xl   tracking-wide text-gray-800  flex items-center font-semibold">ADRESS</h1>
 
             <input
             onChange={handleAddress} value={address.firstName}
              type="text" name="firstName" placeholder='FIRST NAME' 
+             required
              className={`${inputStyles} w-full col-start-1 col-end-1 `}/>
 
             <input 
+            required
             onChange={handleAddress} value={address.lastName}
             type="text" name="lastName" placeholder='LAST NAME' 
             className={`${inputStyles} w-full col-start-2 col-end-2`}/>
 
-            <input onChange={handleAddress} value={address.phone}
+            <input 
+            required
+            onChange={handleAddress} value={address.phone}
             type="number" name="phone" placeholder='PHONE NUMBER' 
             className={inputStyles}/>
 
-            <input onChange={handleAddress} value={address.city}
+            <input 
+            required
+            onChange={handleAddress} value={address.city}
             type="text" name="city" placeholder='CITY' 
             className={`${inputStyles} w-full col-start-1 col-end-1 `}/>
 
-            <input onChange={handleAddress} value={address.pinCode}
+            <input 
+            required
+            onChange={handleAddress} value={address.pinCode}
             type="number" name="pinCode" placeholder='PINCODE' 
             className={`${inputStyles} w-full col-start-2 col-end-2 `}/>
 
-            <input onChange={handleAddress} value={address.street}
+            <input
+            required
+             onChange={handleAddress} value={address.street}
             type="text" name="street" placeholder="STREET" 
             className={inputStyles}/>
 
-            <input onChange={handleAddress} value={address.landMark}
+            <input
+            required
+             onChange={handleAddress} value={address.landMark}
             type="text" name="landMark" placeholder='LAND MARK' 
             className={inputStyles}/>
          
@@ -164,8 +184,7 @@ const PlaceOrder = () => {
               Save as permanent Address
             </button>
              <button
-             onClick={saveAdressFunc}
-              type="button"
+              type="submit"
              className="bg-gray-800 text-white  rounded-xs px-2  transition cursor-pointer">
               Save Address
             </button>
@@ -178,7 +197,7 @@ const PlaceOrder = () => {
 }
 
         {/* Order detail section */}
-        <section className="w-1/2 bg-amber-50    flex flex-col justify-center items-center p-4 mb-2 rounded shadow">
+        <section className=" w-full md:w-1/2 bg-amber-50  max-md:h-screen h-full  flex flex-col justify-center items-center p-4 mb-2 rounded border-x border-gray-200">
           {/* product card*/}
           <div className="grid grid-cols-7  w-full   mt-10 mx-auto    gap-1 p-4 border-b border-gray-100">
           
@@ -210,14 +229,24 @@ const PlaceOrder = () => {
                </p>
              </div>
              <div className="w-full col-start-1 col-span-full font-semibold relative pt-2">
+
               <button onClick={()=>setShowAddressFOrm(true)}
-              className="text-blue-800 absolute top-2 right-3 cursor-pointer"><ion-icon name="create-outline"></ion-icon>Edit</button>
+              className="text-blue-800 absolute top-2 right-3 cursor-pointer">{
+               savedAddress.firstName ? <>
+               <ion-icon name="create-outline"></ion-icon> Edit </> : <>
+              <ion-icon className="font-bold translate-1 text-xl" name="add-outline"></ion-icon> Add 
+              </>
+                  }
+              </button>
 
               <h2>Order Address</h2>
-             <div className="w-full col-start-1 col-span-full text-gray-600 tracking-tight text-md font-normal flex flex-wrap text-start justify-baseline gap-1 ">
+             <div className="w-full col-start-1 col-span-full text-gray-600 tracking-tight text-md font-normal  text-start justify-baseline gap-1 ">
 
-              <span>{savedAddress.firstName  + " " + savedAddress.lastName },</span>
-               {savedAddress.phone },  {savedAddress.city}, {savedAddress.street}, <br />  {savedAddress.landMark},<span>{savedAddress.pinCode}.</span>
+            { savedAddress.firstName ? <>
+               <span>{savedAddress.firstName  + " " + savedAddress.lastName }, </span>
+               {savedAddress.phone },  {savedAddress.city}, {savedAddress.street}, <br /> {savedAddress.landMark},<span>{savedAddress.pinCode}.</span>
+               </> : <><h2>Please ennter an address</h2></>
+              }
 
              </div>
              </div>

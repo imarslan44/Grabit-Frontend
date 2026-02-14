@@ -16,9 +16,10 @@ export const placeOrderCOD = async (orderData)=>{
         credentials: "include",
         body: JSON.stringify(orderData)
       });
-
+  console.log("ordder:", order)
       const data = await order.json();
-      console.log("ordder:", order)
+
+    
       console.log("data", data)
       if(!data.success) return
 
@@ -26,7 +27,7 @@ export const placeOrderCOD = async (orderData)=>{
       
 
     } catch(error){
-
+     console.log(error)
     }
   }
 

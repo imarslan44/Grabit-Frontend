@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BACKEND_URL } from "../config/env.js";
-import { useNavigate, useLocation } from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../context/auth.slice.js";
+import { assets } from "../assets/assets.js";
 
 const Login = () => {
   const [type, setType] = useState("login");
@@ -14,177 +14,180 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const location = useLocation().state?.from || "/";
-//handling inputs change
+
   const handleFormData = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  //login fucntion
+
   const signIn = async (e) => {
     e.preventDefault();
-
     try {
       const url = `${BACKEND_URL}/api/auth/sign-in`;
       const { email, password } = formData;
 
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // 👈 required
+        credentials: "include",
       });
 
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
       const data = await res.json();
-      console.log("Sign-in response:", data);
 
-      if(res.status === 200){
-        dispatch(login(data.data.user))
-        navigate(`${location}`);
-       
+      if (res.status === 200) {
+        dispatch(login(data.data.user));
+        navigate(location);
       }
-
     } catch (err) {
       console.error("Sign-in failed:", err.message);
     }
   };
-  //register function
-   const signUp = async(e)=>{
-    e.preventDefault()
-    try{
-      const {name, email, password} = formData;
-      const url = `${BACKEND_URL}/api/auth/sign-up`
+
+  const signUp = async (e) => {
+    e.preventDefault();
+    try {
+      const { name, email, password } = formData;
+      const url = `${BACKEND_URL}/api/auth/sign-up`;
+
       const res = await fetch(url, {
         method: "POST",
-        headers:{
-          "Content-type": "application/json",
-          credentials: true,
-        },
-        body:JSON.stringify({name, email, password})
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
-  
-      if(res.status === 200){
-        dispatch(login(data.data.user))
-        navigate(location)
+
+      if (res.status === 200) {
+        dispatch(login(data.data.user));
+        navigate(location);
       }
-
-    }catch(err){
-      console.log(err.message)
+    } catch (err) {
+      console.log(err.message);
     }
-    }
-
-
-  
-
-
+  };
 
   return (
-    <div className="w-screen h-screen bg-primary-2 flex items-center justify-center relative">
-      <Link
-        to="/"
-        className="outline rounded-xs text-gray-200 bg-primary-1/80 duration-300 hover:bg-primary-1 p-2 position absolute top-10 left-10"
-      >
-        <ion-icon name="arrow-back-outline"></ion-icon> Back
-      </Link>
+    <div className="min-h-screen w-screen flex bg-[#f5f6f8]"         
+  
+>
+  
+      
+      {/* LEFT SIDE (Hidden on mobile) */}
+      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-white to-gray-100/50 items-center justify-center p-16 z-90">
+        <div>
+          <h1 className="text-4xl font-bold text-gray-900 leading-tight">
+            {type === "login" ? "Welcome Back" : "Join GrabIt"}
+          </h1>
 
-      {type === "register" ? (
-        <form
-          onSubmit={signUp}
-          className="border border-secondary-2/10 shadow-sm rounded-sm flex flex-col p-6"
-        >
-          <h1 className="w-full text-center font-semibold text-lg pb-3 text-secondary-2/60">
-            SignUp
-          </h1>
-          <input
-            value={formData.name}
-            onChange={handleFormData}
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            required
-          />
-          <input
-            value={formData.email}
-            onChange={handleFormData}
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <input
-            value={formData.password}
-            onChange={handleFormData}
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <p className="w-full flex justify-between p-1 text-gray-500 text-xs">
-            Already have an account?{" "}
-            <button
-              type="button"
-              className="cursor-pointer underline"
-              onClick={() => setType("login")}
-            >
-              SignIn
-            </button>
+          <p className="mt-4 text-gray-600 text-lg">
+            {type === "login"
+              ? "Shop smarter. Live better."
+              : "Create your account and start shopping today."}
           </p>
-          <button
-            className="w-full p-1 text-sm text-primary-2 bg-primary-1/80 hover:bg-primary-1 duration-200 rounded-xs cursor-pointer"
-            type="submit"
-            
+
+          <div className="mt-10 space-y-3 text-gray-700">
+            <p>✔ Secure checkout</p>
+            <p>✔ Fast delivery</p>
+            <p>✔ 12,000+ happy customers</p>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="flex w-full lg:w-1/2 items-center justify-center px-6 sm:px-12 z-100 p-10 bg-gradient-to-br from-white to-gray-100/50 ">
+        <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-md shadow-xl relative">
+
+          {/* Back Button */}
+          <Link
+            to="/"
+            className="absolute top-5 left-5 text-gray-500 hover:text-gray-800 transition"
           >
-            SignUp
-          </button>
-        </form>
-      ) : (
-        <form
-          onSubmit={signIn}
-          className="border border-secondary-2/10 shadow-sm rounded-sm flex flex-col p-6"
-        >
-          <h1 className="w-full text-center font-semibold text-lg pb-4 text-secondary-2/60">
-            SignIn
-          </h1>
-          <input
-            value={formData.email}
-            onChange={handleFormData}
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <input
-            value={formData.password}
-            onChange={handleFormData}
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <p className="w-full flex justify-between text-xs text-gray-500 p-1">
-            Don't have an account?{" "}
-            <button
-              type="button"
-              className="cursor-pointer underline"
-              onClick={() => setType("register")}
-            >
-              SignUp
-            </button>
+            ← Back
+          </Link>
+
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
+            {type === "login" ? "Sign In" : "Sign Up"}
+          </h2>
+
+          <p className="text-center text-gray-500 mb-6">
+            {type === "login"
+              ? "Welcome back! Please enter your details."
+              : "Create your account to continue."}
           </p>
-          <button
-            className="w-full p-1 text-sm rounded-xs text-primary-2 bg-primary-1/80 hover:bg-primary-1 duration-200 cursor-pointer"
-            type="submit"
+
+          <form
+            onSubmit={type === "login" ? signIn : signUp}
+            className="space-y-4"
           >
-            SignIn
-          </button>
-        </form>
-      )}
+            {type === "register" && (
+              <input
+                value={formData.name}
+                onChange={handleFormData}
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+                className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+              />
+            )}
+
+            <input
+              value={formData.email}
+              onChange={handleFormData}
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+            />
+
+            <input
+              value={formData.password}
+              onChange={handleFormData}
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+            />
+
+            <button
+              type="submit"
+              className="w-full h-12 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition duration-300"
+            >
+              {type === "login" ? "Sign In" : "Create Account"}
+            </button>
+          </form>
+
+          <div className="text-center mt-6 text-sm text-gray-500">
+            {type === "login" ? (
+              <>
+                Don’t have an account?{" "}
+                <button
+                  onClick={() => setType("register")}
+                  className="text-gray-900 font-medium hover:underline"
+                >
+                  Sign Up
+                </button>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <button
+                  onClick={() => setType("login")}
+                  className="text-gray-900 font-medium hover:underline"
+                >
+                  Sign In
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -78,7 +78,7 @@ const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
       <aside onClick={()=>setIsSidebarOpen(false)}
 
-       className={`bg-lime-400/20 backdrop-blur-sm   md:block  fixed top-14 h-screen border  border-gray-200 ${isSidebarOpen ? "opacity-100 w-screen" : " w-0 opacity-50"}  md:static  transition-all duration-200 ease-in-out z-50 overflow-hidden`}>
+       className={` backdrop-blur-sm   md:block  fixed top-14 h-screen border  border-gray-200 ${isSidebarOpen ? "opacity-100 w-screen" : " w-0 opacity-50"}  md:static  transition-all duration-200 ease-in-out z-50 overflow-hidden`}>
 
         <ul className="bg-white w-52 flex flex-col h-full gap-4 p-4 text-gray-700  text-sm font-medium shadow ">
           <a href={"http://localhost:3000"} target="_blank">Become a Seller </a>

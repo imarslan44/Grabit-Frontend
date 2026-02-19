@@ -42,6 +42,12 @@ const Product = () => {
   }, [id]);
 
   useEffect(() => {
+    setVariantIndex(0)
+    setActiveIndex(0)
+  }, [id])
+  
+
+  useEffect(() => {
     if (currentVariant?.images?.length) {
       setSelectedImage(currentVariant.images[0]);
     }
@@ -210,13 +216,13 @@ const Product = () => {
         <div className="flex gap-4 mt-6">
           <button
             onClick={handleCart}
-            className="flex-1 border border-gray-300 rounded-md py-3 text-sm font-semibold hover:bg-gray-100"
+            className="flex-1 border border-gray-300 rounded-md py-3 text-sm font-semibold hover:bg-gray-100 cursor-pointer"
           >
             Add To Cart
           </button>
           <button
             onClick={buyNow}
-            className="flex-1 bg-black text-white rounded-md py-3 text-sm font-semibold hover:opacity-90"
+            className="flex-1 bg-black text-white rounded-md py-3 text-sm font-semibold hover:opacity-90 cursor-pointer"
           >
             BUY NOW
           </button>

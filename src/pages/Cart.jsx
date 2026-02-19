@@ -34,63 +34,131 @@ const Cart = () => {
  
 
   return (
-    <div className="w-screen min-h-screen bg-gray-100 pt-16 px-1 md:px-14  justify-center items center text-black ">
-      {/* header */}
-          <header className="bg-gray-800 rounded  text-primary-2 uppercase font-semibold text-lg p-2 w-full"><h1> Items In cart </h1></header>
-      {
-        CartItems !== "" ? (
-          // cart list
-          <ul className="w-screen h-full flex flex-col justify-center  ">
-
-        
-
-           {CartItems?.length == 0 && <h1 className="text-gray-700 p-20 text-xl font-semibold">NO items in cart... </h1>}
-            {
-           CartItems?.length > 0 &&  CartItems.map((item)=>(
-            <li key={item._id} className="flex flex-col bg-primary-2 rounded my-1 shadow-md w-1/2 max-md:w-full p-3 max-md:scale-90 relative pt-9">
-              <button 
-                onClick={()=>handleDelete(item._id)}
-                className=" shadow flex justify-center items-center p-2 w-6 h-6 rounded-xs absolute top-1 right-1 cursor-pointer">
-
-                  <ion-icon className="text-xl scale-250 hover:text-red-400" name="close-outline"></ion-icon>
-                </button>
-               <Link to={`/product/${item.productId}`} >
-                
-                <div className="flex justify-between pr-2">
-
-               
-                <div className="w-[75%] flex items-center gap-2 border-b border-gray-500">
-                <img src={item?.variant?.images[0]} alt="" className="w-10 h-10  rounded"/> <p>{item.title}</p>
-                 </div>
-
-                <div className="flex gap-2 items-center border w-[20%] p-2 rounded border-gray-500">
-               <span className="text-gray-500">Rs{item?.variant?.price}</span>
-              
-                </div>
-                </div>
-               <div className="block">
-                <span className="text-gray-400">Quantity:{item?.quantity}</span>
-               </div>
-                
-
-               </Link>
-               <Link to={`/product/${item.productId}`} className='relative left-8/9 bottom-2'>
-               <button to="/order/place" className="p-1 px-3 bg-primary-1 cursor-pointer rounded text-white duration-200 hover:scale-105 text-sm">
-                BUY
-               </button>
-               </Link>
-               </li>
-              ))
-            }
-          </ul>
-        ) : (
-        <>
-        <h1 className="text-secondary-1">('●◡●') No Items added! </h1>
-        </>)
-
-        }
+  <div className="min-h-screen bg-gray-50 pt-20 px-4 md:px-20 text-gray-800">
+    
+    {/* Header */}
+    <div className="max-w-5xl mx-auto mb-8">
+      <h1 className="text-3xl font-bold tracking-tight">
+        Your Cart
+      </h1>
+      <p className="text-gray-500 text-sm mt-1">
+        {CartItems.length} item(s) in your cart
+      </p>
     </div>
-  )
+
+    {/* Main Layout */}
+    <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+
+      {/* Cart Items */}
+      <div className="md:col-span-2 space-y-4">
+
+        {CartItems.length === 0 && (
+          <div className="bg-white p-10 rounded-xl shadow text-center">
+            <h2 className="text-xl font-semibold text-gray-600">
+              Your cart is empty
+            </h2>
+            <p className="text-sm text-gray-400 mt-2">
+              Looks like you haven't added anything yet.
+            </p>
+          </div>
+        )}
+
+        {CartItems.map((item) => (
+          <div
+            key={item._id}
+            className="bg-white rounded-xl shadow-sm p-4 flex gap-4 relative hover:shadow-md transition"
+          >
+
+            {/* Delete */}
+           
+
+            {/* Image */}
+            <img
+              src={item?.variant?.images[0]}
+              alt=""
+              className="w-28 h-28 object-cover rounded-lg"
+            />
+
+            {/* Info */}
+            <div className="flex flex-col justify-between w-full">
+              <div>
+                <Link to={`/product/${item.productId}`}>
+                  <h2 className="font-semibold text-lg hover:text-primary-1 transition">
+                    {item.title}
+                  </h2>
+                </Link>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Quantity: {item.quantity}
+                </p>
+              </div>
+
+              <div className="flex justify-between items-center mt-3">
+                <span className="text-lg font-bold text-primary-1">
+                  ₹ {item?.variant?.price}
+                </span>
+
+ <div className="flex gap-4">          
+  <button 
+              onClick={() => handleDelete(item._id)}
+              className=" text-gray-400 text-xl hover:text-red-500 transition cursor-pointer">
+              <ion-icon name="trash-sharp"></ion-icon>
+  </button>
+                <Link to={`/order/place/${item.productId}`}>
+                  <button className="bg-primary-1 text-white px-4 py-1.5 rounded-md text-sm hover:opacity-90 transition cursor-pointer">
+                    Buy Now
+                  </button>
+                </Link>
+</div> 
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Summary Section hidden for now*/}
+      {CartItems.length > 0 && (
+        <div className="bg-white hidden p-6 rounded-xl shadow-sm h-fit sticky top-24">
+          <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+
+          <div className="flex justify-between text-sm mb-2">
+            <span>Subtotal</span>
+            <span>
+              ₹{" "}
+              {CartItems.reduce(
+                (acc, item) =>
+                  acc + item.quantity * item?.variant?.price,
+                0
+              )}
+            </span>
+          </div>
+
+          <div className="flex justify-between text-sm mb-4">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div className="border-t pt-3 flex justify-between font-bold">
+            <span>Total</span>
+            <span>
+              ₹{" "}
+              {CartItems.reduce(
+                (acc, item) =>
+                  acc + item.quantity * item?.variant?.price,
+                0
+              )}
+            </span>
+          </div>
+
+          <button className="w-full mt-5 bg-primary-1 text-white py-2 rounded-lg hover:opacity-90 transition">
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+)
+
 }
 
 export default Cart

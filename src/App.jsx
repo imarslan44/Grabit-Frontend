@@ -13,7 +13,7 @@ import Contact from "./pages/Contact.jsx"
 import Login from './pages/Login.jsx'
 import Cart from './pages/Cart.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
-import PlaceOrder from './components/PlaceOrder.jsx'
+import PlaceOrder from './pages/PlaceOrder.jsx'
 import Footer from './components/Footer.jsx'
 import productlist from './components/productlist.jsx'
 import Productlist from './components/productlist.jsx'

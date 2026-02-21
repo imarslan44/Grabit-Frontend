@@ -5,9 +5,9 @@ import { fetchUser } from "./user.controller";
 // place order logic
 export const placeOrderCOD = async (orderData)=>{
     try{
-
+ 
      
-      const url = `${BACKEND_URL}/order/place/cod`;
+      const url = `${BACKEND_URL}/api/order/place/cod`;
       const order = await fetch(url, {
         method: "POST",
         headers: {

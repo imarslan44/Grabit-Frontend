@@ -29,10 +29,11 @@ const Product = () => {
   const [sizeIndex, setSizeIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
   const currentVariant = product?.variants?.[variantIndex];
   const currentSize = currentVariant?.sizes?.[sizeIndex];
   const price = currentSize?.price || currentVariant?.price;
+
+  
 
   useEffect(() => {
     (async () => {
@@ -134,11 +135,11 @@ const Product = () => {
             ))}
           </div>
 
-          <div className=" row-span-4 col-start-1 row-start-1 col-span-5 bg-gray-100 rounded-sm overflow-hidden">
+          <div className=" row-span-4 col-start-1 row-start-1 col-span-5 bg-gray-50 rounded-sm overflow-hidden">
             <img
               src={selectedImage}
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>

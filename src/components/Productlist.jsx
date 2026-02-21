@@ -14,13 +14,13 @@ const Productlist = () => {
    const fetchProducts = async (controller) => {
      try {
          const res = await fetch(`${BACKEND_URL}/api/product`, {signal : controller.signal});
-         console.log(res)
+        
          if (!res.ok) throw new Error();
          const data = await res.json();
          const list = data?.data || [];
          setItems(list);
          dispatch(LoadProducts(list));
-         console.log("succeed:", data)
+        
        } catch (e) {
          console.log("error", e)
          if (e.name !== "AbortError") setError(true);

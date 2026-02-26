@@ -24,7 +24,7 @@ const handleAddress = (e)=>{
     const inputStyles = `w-full text-2xl row-span-1 uppercase col-start-1 px-2  col-span-2 font-semibold   rounded-sm `
 
   return (
-     <section className={` max-sm:absolute max-sm:h-screen w-screen flex-1 md:p-10 bg-amber-50 flex justify-center items-center relative border-r-1 border-gray-300 top-0  transition-all duration-800 left-0 z-90  ${showAddressFOrm ? "left-0" : "-left-full" }`}>
+     <section className={` max-sm:absolute max-sm:h-screen w-screen flex-1 md:p-10 bg-white flex justify-center items-center relative border-r-1 border-gray-300 top-0  transition-all duration-800 left-0 z-90  ${showAddressFOrm ? "left-0" : "-left-full" }`}>
     
             <button onClick={()=>setShowAddressFOrm(false)}
              className="max-md:absolute  left p-1 px-2 text-black absolute max-sm:top-16 top-3 right-2 bg-white cursor-pointer rounded-sm hover:shadow border border-gray-200  ">

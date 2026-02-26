@@ -17,21 +17,21 @@ const Card = ({ item, styles }) => {
       onClick={() => window.scrollTo(0, 0)}
     >
       <article
-        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-200/50 rounded-sm overflow-hidden  duration-200 transition-all  hover:shadow-md hover:border-gray-200  p-1 ${styles}`}
+        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-800/20 rounded-sm overflow-hidden  duration-200 transition-all  hover:shadow-md hover:border-gray-200  p-1 ${styles}`}
       >
         {/* IMAGE */}
-        <div className="w-full flex items-start h-50 justify-baseline bg-white overflow-hidden rounded-sm ">
+        <div className="w-full flex items-start min-h-50 max-h-60 justify-baseline bg-white overflow-hidden rounded-sm ">
           <img
             src={image}
             alt={item.title}
             loading="lazy"
-            className=" w-full h-full  rounded-sm  object-contain object-bottom"
+            className=" w-full min-h-50 max-h-60  rounded-sm  object-contain   object-top"
           />    
           
         </div>
 
         {/* CONTENT */}
-        <div className="p-1 space-y-2 h-22 ">
+        <div className="p-1 space-y-2 h-22 bg-transparent ">
           <h3 className="text-sm font-medium text-gray-900 line-clamp-2">
             {item.title}
           </h3>

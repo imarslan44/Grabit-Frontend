@@ -20,12 +20,12 @@ const Productlist = () => {
          const list = data?.data || [];
          setItems(list);
          dispatch(LoadProducts(list));
-        
+      
        } catch (e) {
          console.log("error", e)
          if (e.name !== "AbortError") setError(true);
        } finally {
-         console.log("done:")
+         
          setLoading(false);
        }
     };
@@ -45,7 +45,7 @@ const Productlist = () => {
    }, []);
 
   return (
-     <main className="bg-white w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
+     <main className="bg-amber-50/30 w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
           <div className="flex  sm:flex-row sm:justify-between gap-6 md:gap-4 mb-6 px-3">
             <div>
               <h2 className="text-lg text-gray-700 md:text-2xl  font-medium  tracking-tight uppercase">Explore items.</h2>
@@ -61,11 +61,11 @@ const Productlist = () => {
           {loading && <div className="py-20 text-center text-xl text-gray-900 p-10">Loading…</div>}
           {error && <div className="py-20 text-center text-red-500">Failed to load products</div>}
 
-        <div className="columns-2 md:columns-3 lg:grid grid-cols-5 gap-3 p-2 ">
+        <ul className="columns-2 md:columns-3 lg:columns-5 p-3 ">
              {items.map((item, i) => (
              <Card key={item._id || i} item={item} styles="mb-2 break-inside-avoid" />
           ))}
-</div>
+        </ul>
 
 
 

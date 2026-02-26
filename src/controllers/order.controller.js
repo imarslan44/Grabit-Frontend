@@ -79,11 +79,8 @@ export const handlePayment = async (orderData)=>{
       });
 
       const result = await verification.json();
-
       console.log(result);
       alert(result.message);
-
-
     },
 
     "prefill": {
@@ -101,7 +98,6 @@ export const handlePayment = async (orderData)=>{
     "theme": {
         "color": "#3399cc"
     }
-
 
   };
   var rzp1 = new Razorpay(options);

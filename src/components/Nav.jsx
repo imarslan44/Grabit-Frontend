@@ -7,7 +7,7 @@ const Nav = () => {
 const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border-b border-gray-200 z-50 h-15 ">
+    <header className="fixed top-0 left-0 w-full bg-white border-b border-gray-200 z-100 h-15 ">
       <div className="max-w-[1400px] h-full mx-auto px-2 md:px-6">
         <div className="h-full  flex items-center justify-between gap-2">
 

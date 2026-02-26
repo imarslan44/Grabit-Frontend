@@ -92,7 +92,7 @@ const handleOrder = async ()=>{
       {/* Back btn */}
 
       <button onClick={()=>navigate(`/product/${productId}`)}
-       className="p-3  absolute top-18 left-10  rounded text-black text-xl cursor-pointer  z-91">
+       className="p-3  absolute top-16 left-6  rounded text-black text-xl cursor-pointer  z-90">
         <ion-icon name="arrow-back-sharp"></ion-icon>
       </button>
     
@@ -107,7 +107,7 @@ const handleOrder = async ()=>{
         }
 
         {/* Order detail section */}
-        <section className=" w-full md:w-1/2 bg-amber-50  max-md:h-screen h-full  flex flex-col justify-center items-center p-4 mb-2 rounded border-x border-gray-200">
+        <section className=" w-full md:w-1/2 bg-white  max-md:h-screen h-full  flex flex-col justify-center items-center p-4 mb-2 rounded border-x border-gray-200">
               {/* product card*/}
           <div className="grid grid-cols-7  w-full   mt-10 mx-auto    gap-1 p-4 border-b border-gray-100">
           
@@ -165,10 +165,9 @@ const handleOrder = async ()=>{
          <div  className='m-auto flex w-full flex-col  items-end px-6'>
         
           <div className="w-full flex-1 text-lg font- flex items-end  flex-col gap-2 text-gray-800 font-serif">
-            <h1 className="flex justify-between w-full">Subtotal__________ .<span className='font-serif inline-block min-w-20 bg-gray-100 text-start '>Rs {price * quantity}</span></h1>
-            <h2 className="flex justify-between w-full">Shipping__________.<span className='font-serif inline-block min-w-20 bg-gray-100 text-start'>Rs {shippingFee}</span></h2>
-
-            <h3 className="flex justify-between w-full">Total____________.<span className='font-serif inline-block min-w-20 bg-gray-100 text-start '>Rs {shippingFee + (price * quantity)}</span>
+            <h1 className="flex justify-between w-full border-b border-gray-300">Subtotal.<span className='font-serif inline-block min-w-20 text-end '>Rs {price * quantity}</span></h1>
+            <h2 className="flex justify-between w-full border-b border-gray-300">Shipping.<span className='font-serif inline-block min-w-20  text-end'>Rs {shippingFee}</span></h2>
+            <h3 className="flex justify-between w-full border-b border-gray-300">Total.<span className='font-serif inline-block min-w-20  text-end '>Rs {shippingFee + (price * quantity)}</span>
             </h3>
 
           {/* payment mode */}

@@ -31,11 +31,14 @@ export const getCartItems = async () =>{
    });
    const data = await response.json();
    const status = response.status
-   
-  if(status === 401){
-
+   console.log(response)
+   console.log(data)
+  if(!data.success ){
+    return console.log("something went wrong!")
   };
    return data;
+  
+   
   
     }catch(error){
         console.log(error);

@@ -78,13 +78,13 @@ const handleAddress = (e)=>{
              
              <div className="w-full flex gap-3 col-start-1 col-span-full justify-between">
       
-                <button type="button"
-                 className="     border border-gray-800 text-gray-800  rounded-xs px-2  transition cursor-pointer">
+                <button disabled={true} type="button"
+                 className="   w-full  border border-gray-400 text-gray-400  rounded-xs px-2 text-sm leading-4  transition ">
                   Save as permanent Address
                 </button>
                  <button
                   type="submit"
-                 className="bg-gray-800 text-white  rounded-xs px-2  transition cursor-pointer">
+                 className="bg-gray-800 text-white  rounded-xs w-full  transition cursor-pointer">
                   Save Address
                 </button>
             </div>

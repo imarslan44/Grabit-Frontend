@@ -88,7 +88,7 @@ const handleOrder = async ()=>{
 
 
   return (
-    <section className="w-screen lg:h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15  justify-center ">
+    <section className="w-screen  h-screen flex flex-col lg:flex-row  bg-primary-2  relative pt-15  justify-center ">
       {/* Back btn */}
 
       <button onClick={()=>navigate(`/product/${productId}`)}
@@ -171,19 +171,19 @@ const handleOrder = async ()=>{
             </h3>
 
           {/* payment mode */}
-          <div>
+          <div className="w-full">
                
-             <label htmlFor="COD" className={`flex mt-4 items-center text-sm tracking-wide font-medium text-gray-700 font-serif gap-1  ${isCOD ? "opacity-100" : "opacity-50"}`}>
+             <label htmlFor="COD" className={`flex mt-4   w-full items-center text-md tracking-wide font-medium text-gray-700 font-serif gap-1  ${isCOD ? "opacity-100" : "opacity-50"}`}>
               <input disabled={!isCOD}
               onChange={(e)=>setCODSelected(e.target.checked)} 
               type="checkbox" id="COD" 
-              className="translate-y-[1px]"/>
+              className="translate-y-[1px] scale-150"/>
               Cash on delivery {!isCOD && <span>is not available</span>} </label>
            
           </div>
           <button onClick={handleOrder}
 
-           className="py-2 text-xl font-medium bg-primary-1 w-full text-center  text-white flex-1 rounded-sm mt-3 cursor-pointer duration-100 hover:bg-gray-800">
+           className="py-3 text-xl font-medium bg-gray-800 w-full text-center  text-white flex-1 rounded-sm mt-3 cursor-pointer duration-100 hover:bg-gray-800">
             Place Order
           </button>
           </div>

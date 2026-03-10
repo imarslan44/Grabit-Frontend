@@ -45,7 +45,7 @@ const Productlist = () => {
    }, []);
 
   return (
-     <main className="bg-amber-50/30 w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
+     <main className="bg-gray-50/30 w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
           <div className="flex  sm:flex-row sm:justify-between gap-6 md:gap-4 mb-6 px-3">
             <div>
               <h2 className="text-lg text-gray-700 md:text-2xl  font-medium  tracking-tight uppercase">Explore items.</h2>

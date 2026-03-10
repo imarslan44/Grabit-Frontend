@@ -12,8 +12,9 @@ const Cart = () => {
 
 
   const fetchCartItems = async()=>{
-    const {cartItems} = await getCartItems();
-    setCartItems(cartItems)
+    const {data} = await getCartItems();
+    console.log(data)
+    setCartItems(data)
   }
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Cart = () => {
     }
 
   }
-  console.log(CartItems?.length)
+ 
 
  
 
@@ -42,7 +43,7 @@ const Cart = () => {
         Your Cart
       </h1>
       <p className="text-gray-500 text-sm mt-1">
-        {CartItems.length} item(s) in your cart
+        {CartItems?.length} item(s) in your cart
       </p>
     </div>
 
@@ -52,7 +53,7 @@ const Cart = () => {
       {/* Cart Items */}
       <div className="md:col-span-2 space-y-4">
 
-        {CartItems.length === 0 && (
+        {CartItems?.length === 0 && (
           <div className="bg-white p-10 rounded-xl shadow text-center">
             <h2 className="text-xl font-semibold text-gray-600">
               Your cart is empty
@@ -63,7 +64,7 @@ const Cart = () => {
           </div>
         )}
 
-        {CartItems.map((item) => (
+        {CartItems?.map((item) => (
           <div
             key={item._id}
             className="bg-white rounded-xl shadow-sm p-4 flex gap-4 relative hover:shadow-md transition"
@@ -117,7 +118,7 @@ const Cart = () => {
       </div>
 
       {/* Summary Section hidden for now*/}
-      {CartItems.length > 0 && (
+      {CartItems?.length > 0 && (
         <div className="bg-white hidden p-6 rounded-xl shadow-sm h-fit sticky top-24">
           <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
 

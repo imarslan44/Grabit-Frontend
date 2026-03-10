@@ -6,7 +6,7 @@ import { BACKEND_URL } from '../config/env';
 const ProtectedRoutes = ({children}) => {
 const [isAuthorized, setIsAuthorized] = useState(true);
 
-const {user} = useSelector((state)=> state.auth);
+
 const location = useLocation();
 
 const authorizeUser = async ()=>{

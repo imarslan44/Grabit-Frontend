@@ -11,15 +11,24 @@ const Cart = () => {
 
 
 
-  const fetchCartItems = async()=>{
-    const {data} = await getCartItems();
-    console.log(data)
-    setCartItems(data)
-  }
+  
 
   useEffect(() => {
-    fetchCartItems()
+  (async()=>{
+    const data = await getCartItems();
+    let  arr = data.cartItems;
+    setCartItems(arr)
+  }
+)()
+
   }, [])
+
+  useEffect(() => {
+   
+  }, [CartItems])
+  
+
+
   
   const handleDelete = async(id)=>{
     const data = await deleteCartItem(id);
@@ -64,12 +73,22 @@ const Cart = () => {
           </div>
         )}
 
-        {CartItems?.map((item) => (
-          <div
+        { CartItems.length > 0 && CartItems?.map((item) => {
+          console.log(item)
+         if(item.available !== undefined && !item.available){
+        
+           return <div
+            key={item._id}
+            className="bg-white rounded-md shadow-sm p-4 flex gap-4 relative hover:shadow-md transition"
+          >
+          <h2 className="text-xl font-medium text-gray-500">This product was deleted </h2>
+
+          </div>
+         }else{
+           return <div
             key={item._id}
             className="bg-white rounded-xl shadow-sm p-4 flex gap-4 relative hover:shadow-md transition"
           >
-
             {/* Delete */}
            
 
@@ -114,7 +133,9 @@ const Cart = () => {
               </div>
             </div>
           </div>
-        ))}
+         }
+         }
+        )}
       </div>
 
       {/* Summary Section hidden for now*/}

@@ -2,32 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { BACKEND_URL } from '../config/env';
-
+const url = `${BACKEND_URL}/api/auth/authorize`
 const ProtectedRoutes = ({children}) => {
-const [isAuthorized, setIsAuthorized] = useState(true);
+// include cookies in the request
+//make a request to the backend to check if the user is authenticated
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const location = useLocation();
+  const checkAuth = async () => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // include cookies in the request
+      }); 
+      const data = await response.json();
+      console.log("Auth check response:", data);
+      setIsAuthenticated(data.success);
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+      setIsAuthenticated(false);
+    }
+  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
+  if (isAuthenticated === null) {
+    // You can return a loading spinner here while checking authentication
+    return <div>Loading...</div>;
+  }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  }
+  return children ? children : <Outlet />;
 
-const location = useLocation();
-
-const authorizeUser = async ()=>{
-  
-  const url = `${BACKEND_URL}/api/auth/authorize`
-  const response = await fetch(url, {
-    credentials: "include"});
-
-  const data =  await response.json();
-  console.log(data.success)
-  if(!data.success) return setIsAuthorized(false);
-  setIsAuthorized(true)
-}
-useEffect(() => {
-   authorizeUser()
-   console.log(isAuthorized)
-}, [])
-
-  if(!isAuthorized) return <Navigate to="/login" state={{ from: location.pathname }} replace />;
-
-  return <Outlet/>
 }
 
 export default ProtectedRoutes

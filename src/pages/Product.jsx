@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateProduct, updateQuantity } from "../context/order.slice.js";
 
+
 const Product = () => {
   //scrollable image  for mobile
   const [activeIndex, setActiveIndex] = useState(0); 
@@ -39,6 +40,7 @@ const Product = () => {
     (async () => {
       const data = await fetchProductdetail(id);
       setProduct(data);
+      console.log(data)
     })();
   }, [id]);
 
@@ -52,6 +54,8 @@ const Product = () => {
     if (currentVariant?.images?.length) {
       setSelectedImage(currentVariant.images[0]);
     }
+    
+    scrollToIndex(0);
   }, [currentVariant]);
 
   const handleCart = async () => {
@@ -97,6 +101,7 @@ const Product = () => {
                <div key={i} className="min-w-full rounded-xs  h-65  overflow-hidden snap-center bg-gray-100 flex" > 
                  <img src={img} alt="" className="w-full h-full object-contain object-center rounded-sm" /> 
               </div> 
+
             ))}
            </div> {/* Dots */}
       <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex space-x-2">

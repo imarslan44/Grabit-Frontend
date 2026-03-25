@@ -13,16 +13,19 @@ const Productlist = () => {
 
    const fetchProducts = async (controller) => {
      try {
-         const res = await fetch(`${BACKEND_URL}/api/product`, {signal : controller.signal});
+        const base = BACKEND_URL ? BACKEND_URL.replace(/\/$/, '') : '';
+        const url = `${base}/api/product`;
+       
+        const res = await fetch(url, { signal: controller.signal });
         
          if (!res.ok) throw new Error();
          const data = await res.json();
          const list = data?.data || [];
          setItems(list);
          dispatch(LoadProducts(list));
-      
+        
        } catch (e) {
-         console.log("error", e)
+        console.log("error", e)
          if (e.name !== "AbortError") setError(true);
        } finally {
          
@@ -30,14 +33,6 @@ const Productlist = () => {
        }
     };
  
-    const DeleteProduct = async(id)=>{
-      try{
-        const URL = `${BACKEND_URL}/api/product/delete/${id}`
-
-      }catch(err){
-        console.log(err)
-      }
-    }
    useEffect(() => {
     const controller = new AbortController();
      fetchProducts(controller);
@@ -45,7 +40,7 @@ const Productlist = () => {
    }, []);
 
   return (
-     <main className="bg-gray-50/30 w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
+     <main className="bg-white-bg w-screen min-h-50 rounded-xs sm:px-5 lg:px-10 pt-8">
           <div className="flex  sm:flex-row sm:justify-between gap-6 md:gap-4 mb-6 px-3">
             <div>
               <h2 className="text-lg text-gray-700 md:text-2xl  font-medium  tracking-tight uppercase">Explore items.</h2>
@@ -61,7 +56,7 @@ const Productlist = () => {
           {loading && <div className="py-20 text-center text-xl text-gray-900 p-10">Loading…</div>}
           {error && <div className="py-20 text-center text-red-500">Failed to load products</div>}
 
-        <ul className="columns-2 md:columns-3 lg:columns-5 p-3 ">
+        <ul className=" bg-gray-100  rounded columns-2 md:columns-3 lg:columns-5 p-3 ">
              {items.map((item, i) => (
              <Card key={item._id || i} item={item} styles="mb-2 break-inside-avoid" />
           ))}

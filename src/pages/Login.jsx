@@ -91,11 +91,11 @@ const Login = () => {
 
       {/* RIGHT SIDE */}
       <div className="flex w-full lg:w-1/2 items-center justify-center px-6 sm:px-12 z-100 p-10 bg-gradient-to-br from-white to-gray-100/50 ">
-          <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-md shadow-xl relative">
+          <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-sm shadow-sm relative">
           {/* Back Button */}
           <Link
             to="/"
-            className="absolute top-5 left-5 text-gray-500 hover:text-gray-800 transition">
+            className="absolute top-5 left-5 text-gray-600 hover:text-gray-800 transition">
             ← Back
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
@@ -108,7 +108,7 @@ const Login = () => {
           </p>
           <form
             onSubmit={type === "login" ? signIn : signUp}
-            className="space-y-4">
+            className="flex flex-col gap-2">
             {type === "register" && (
               <input
                 value={formData.name}
@@ -117,7 +117,7 @@ const Login = () => {
                 name="name"
                 placeholder="Full Name"
                 required
-                className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+                className="w-full h-12 px-4 rounded-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-800 transition"
               />
             )}
             <input
@@ -127,7 +127,7 @@ const Login = () => {
               name="email"
               placeholder="Email"
               required
-              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+              className="w-full h-12 px-4 rounded-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-800 transition"
             />
             <input
               value={formData.password}
@@ -136,11 +136,11 @@ const Login = () => {
               name="password"
               placeholder="Password"
               required
-              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
+              className="w-full h-12 px-4 rounded-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 transition"
             />
             <button
               type="submit"
-              className="w-full h-12 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition duration-300"
+              className="w-full h-12 bg-gray-900 text-white rounded-sm font-semibold hover:bg-gray-800 transition duration-300"
             >
               {type === "login" ? "Sign In" : "Create Account"}
             </button>

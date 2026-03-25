@@ -18,6 +18,15 @@ src: url('./assets/Anton/Anton-Regular.ttf') format('truetype');
 
 }
 
+@theme{
+
+  --color-black  : #03001C;
+  --color-main   : #76d914;
+  --color-white : #fff;
+  --color-white-bg : #f9fafb;
+  --color-gray-text   : #6a7282 ;
+
+      }
 
 form input{
   @apply border w-full my-1 rounded-xs p-1 text-xs

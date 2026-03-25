@@ -163,7 +163,7 @@ const OrderCard = ({ order }) => {
 
         <div className="flex  w-full md:w-60 justify-between items-center  md:h-10 gap-3  px-2 relative sm:absolute right-4 bottom-4">
           {/* price */}
-          <div>
+          <div className="px-4">
                <div className="text-lg w-full font-semibold text-green-700 mb-1">₹ {amount}
                </div>
             </div>

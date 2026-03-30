@@ -1,10 +1,11 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 
 @font-face{
-font-family: Anton;
+font-family: 
+;
 src: url('./assets/Anton/Anton-Regular.ttf') format('truetype');
-}
+} */
 /* set colors for theme */
 @theme{
 

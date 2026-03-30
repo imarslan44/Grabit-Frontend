@@ -64,7 +64,6 @@ import hero_bg from "./hero_bg.jpeg"
  export const assets = {
  hero_bg,
  logo,
- stationaries,
  hero_image,
  
 };

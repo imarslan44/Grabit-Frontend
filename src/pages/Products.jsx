@@ -3,11 +3,7 @@
 // Uses ZERO external UI dependencies (no lucide, no icon libs)
 
 import React, { useEffect, useState, memo } from "react";
-import { useDispatch } from "react-redux";
-import { BACKEND_URL } from "../config/env.js";
-import { LoadProducts } from "../context/productsSlice.js";
-import Card from "../components/Card";
-import Productlist from "../components/productlist.jsx";
+import Productlist from "../components/Productlist.jsx";
 
 
 const Products = () => {

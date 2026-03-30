@@ -15,8 +15,7 @@ import Cart from './pages/Cart.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 import PlaceOrder from './pages/PlaceOrder.jsx'
 import Footer from './components/Footer.jsx'
-import productlist from './components/productlist.jsx'
-import Productlist from './components/productlist.jsx'
+import Productlist from './components/Productlist.jsx'
 import Orders from './pages/Orders.jsx'
 
 

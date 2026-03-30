@@ -13,14 +13,17 @@ const Productlist = () => {
 
    const fetchProducts = async (controller) => {
      try {
-        const base = BACKEND_URL ? BACKEND_URL.replace(/\/$/, '') : '';
-        const url = `${base}/api/product`;
-       
-        const res = await fetch(url, { signal: controller.signal });
         
+        const url = `${BACKEND_URL}/api/product`;
+        console.log("Fetching products from:", url);
+        const res = await fetch(url, { signal: controller.signal });
+
+        console.log("Fetch response status:", res);
          if (!res.ok) throw new Error();
          const data = await res.json();
+         console.log("Fetched products:", data);
          const list = data?.data || [];
+
          setItems(list);
          dispatch(LoadProducts(list));
         
@@ -36,7 +39,7 @@ const Productlist = () => {
    useEffect(() => {
     const controller = new AbortController();
      fetchProducts(controller);
-    return () => controller.abort();
+   // return () => controller.abort();
    }, []);
 
   return (

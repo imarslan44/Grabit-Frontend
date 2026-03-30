@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProductList } from '../assets/assets'
+//import { ProductList } from '../assets/assets'
 import Card from './Card'
 const BestSeller = () => {
   

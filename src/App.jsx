@@ -4,7 +4,7 @@ import './index.css'
 import './output.css'
 import Nav from './components/Nav.jsx'
 import Home from './pages/Home.jsx'
-import BestSeller from './components/BestSeller.jsx'
+
 import Products from "./pages/Products.jsx"
 import{ Routes, Route} from "react-router-dom";
 import Product from "./pages/Product.jsx"

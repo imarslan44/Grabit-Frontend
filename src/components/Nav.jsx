@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
-
+let SELLER_SITE = "https://barket-seller.vercel.app/";
 const Nav = () => {
 // Sidebar toggle state
 const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -84,7 +84,7 @@ const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
           <div className=" -translate-x-8"><img src={assets.logo} alt="" width={200} /></div>
           <NavLink to="/orders">Orders</NavLink>
           <NavLink to="/login">Logout</NavLink>
-            <a href={"http://localhost:3000"} target="_blank">
+            <a href={SELLER_SITE} target="_blank">
             Become a Seller
             </a>
         </ul>

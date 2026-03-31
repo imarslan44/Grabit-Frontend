@@ -6,7 +6,7 @@ const url = `${BACKEND_URL}/api/user`
 
 const response = await fetch(url, {
     credentials : "include",
-    header: {
+    headers: {
         "Content-Type": "application/json"
     },
 });

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import React, {useEffect} from "react";
-import { ProductList } from "../assets/assets";
+//import { ProductList } from "../assets/assets";
 
 const initialState = {
     products: [],

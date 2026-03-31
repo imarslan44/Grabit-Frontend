@@ -25,6 +25,7 @@ const Login = () => {
   const signIn = async (e) => {
     e.preventDefault();
     try {
+      
       const url = `${BACKEND_URL}/api/auth/sign-in`;
       const { email, password } = formData;
       const res = await fetch(url, {
@@ -38,6 +39,8 @@ const Login = () => {
       if (res.status === 200) {
         dispatch(login(data.data.user));
         navigate(location);
+      } else {
+        alert(data?.message || `Sign in failed (${res.status}).`);
       }
     } catch (err) {
       console.error("Sign-in failed:", err.message);
@@ -57,10 +60,16 @@ const Login = () => {
       });
 
       const data = await res.json();
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         dispatch(login(data.data.user));
-        navigate(location);
+       if(!location) return navigate("/");
+       return navigate(location);
       }
+      if (res.status === 409) {
+        alert(data?.message || "User already exists. Please sign in.");
+        return;
+      }
+      alert(data?.message || `Sign up failed (${res.status}).`);
 
     } catch (err) {
       console.log(err.message);

@@ -51,7 +51,7 @@ export const  deleteCartItem = async (id)=>{
     const url = `${BACKEND_URL}/api/cart/${id}`;
     const response = await fetch(url,{
       method: 'DELETE',
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",

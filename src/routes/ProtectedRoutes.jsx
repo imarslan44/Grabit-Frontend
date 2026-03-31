@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { BACKEND_URL } from '../config/env';
-const url = `${BACKEND_URL}/api/auth/authorize`
+
 const ProtectedRoutes = ({children}) => {
 // include cookies in the request
 //make a request to the backend to check if the user is authenticated
@@ -10,11 +10,9 @@ const ProtectedRoutes = ({children}) => {
   const location = useLocation();
   const checkAuth = async () => {
     try {
+      const url = `${BACKEND_URL}/api/auth/authorize`
       const response = await fetch(url, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include", // include cookies in the request
       }); 
       const data = await response.json();

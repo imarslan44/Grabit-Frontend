@@ -17,7 +17,7 @@ const Card = ({ item, styles }) => {
       onClick={() => window.scrollTo(0, 0)}
     >
       <article
-        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-100 shadow-sm rounded-sm overflow-hidden  duration-200 transition-all   hover:border-gray-100 hover:shadow-lg p-1 ${styles}`}
+        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-100 shadow-sm rounded-sm overflow-hidden duration-200 transition-all   hover:border-gray-100 hover:shadow-lg p-1 ${styles}`}
       >
         {/* IMAGE */}
         <div className="w-full flex items-start min-h-50 max-h-50 justify-baseline bg-white overflow-hidden rounded-sm ">

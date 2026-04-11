@@ -95,16 +95,16 @@ const Product = () => {
       <div className="w-full md:h-[85vh]  lg:w-3/8   ">
     {/* mobile image section slider */}
         <div className="md:hidden relative h-full"> 
-            <div ref={sliderRef} onScroll={handleScroll} className="overflow-x-auto flex gap-1 snap-x snap-mandatory rounded-sm scrollbar-hide" > 
+            <div ref={sliderRef} onScroll={handleScroll} className="overflow-x-auto flex gap-1 snap-x snap-mandatory rounded-sm min-h-60 bg-gray-200 scrollbar-hide" > 
             {currentVariant?.images?.map((img, i) => 
               ( 
-               <div key={i} className="min-w-full rounded-xs  h-65  overflow-hidden snap-center bg-gray-100 flex" > 
+               <div key={i} className="min-w-full rounded-xs  h-65 min-h-40  overflow-hidden snap-center bg-gray-200 hello world flex" > 
                  <img src={img} alt="" className="w-full h-full object-contain object-center rounded-sm" /> 
               </div> 
 
             ))}
            </div> {/* Dots */}
-      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute -bottom-5 bg-gray-500 min-h-4 left-1/2 -translate-x-1/2 flex space-x-2">
         {currentVariant?.images?.map((_, i) => (
           <button key={i} onClick={() => scrollToIndex(i)}
             className={`h-2 w-2 rounded-full transition-colors ${
@@ -140,7 +140,7 @@ const Product = () => {
             ))}
           </div>
 
-          <div className=" row-span-4 col-start-1 row-start-1 col-span-5 bg-gray-50 rounded-sm overflow-hidden">
+          <div className=" row-span-4 col-start-1 row-start-1 col-span-5 bg-gray-100 rounded-lg overflow-hidden">
             <img
               src={selectedImage}
               alt=""
@@ -153,9 +153,11 @@ const Product = () => {
       {/* PRODUCT DETAILS */}
       <div className="w-full flex-1 bg-white rounded-sm p-3 md:p-6 shadow-xs mb-2">
 
-        <p className="text-xs uppercase text-gray-500">Seller</p>
+        <p className="text-xs uppercase text-gray-500">{product?.sellel || ""}</p>
         <h1 className="text-2xl font-semibold mt-1">
-          {product?.title}
+       {   product?.title ? product.title : (<h1 className="rounded-sm w-2/3 h-8 bg-gray-200"></h1>
+       )
+}
         </h1>
 
         {/* COLOR */}
@@ -205,16 +207,16 @@ const Product = () => {
         )}
 
         {/* QUANTITY + PRICE */}
-        <div className="flex items-center gap-4 mt-4">
+        <div className={`flex items-center gap-4 mt-4 ${price ? "" : "bg-gray-200 w-1/2 rounded-sm p-1 "}`}>
           <input
             type="number"
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className="w-14 border rounded px-2 py-1 text-center"
+            className="w-14 border rounded-xs border-gray-400 px-2 py-1 text-center"
           />
-          <p className="text-xl font-bold">
-            ₹ {quantity * price}
+          <p className="text-xl font-bold text-gray-800">
+            ₹ {quantity * price ||""}
           </p>
         </div>
 

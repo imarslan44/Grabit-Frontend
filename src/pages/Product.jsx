@@ -104,11 +104,11 @@ const Product = () => {
 
             ))}
            </div> {/* Dots */}
-      <div className="absolute -bottom-5  min-h-4 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute -bottom-5 bg-white rounded p-1  min-h-4 left-1/2 -translate-x-1/2 flex space-x-2 ">
         {currentVariant?.images?.map((_, i) => (
           <button key={i} onClick={() => scrollToIndex(i)}
-            className={`h-2 w-2 rounded-full transition-colors ${
-              i === activeIndex ? "bg-gray-800" : "bg-gray-400"
+            className={`h-2 w-2 rounded-full transition-colors duration-500 ${
+              i === activeIndex ? "bg-gray-800" : "bg-gray-300"
             }`}
           />
         ))}

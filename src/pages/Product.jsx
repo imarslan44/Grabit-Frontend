@@ -95,16 +95,16 @@ const Product = () => {
       <div className="w-full md:h-[85vh]  lg:w-3/8   ">
     {/* mobile image section slider */}
         <div className="md:hidden relative h-full"> 
-            <div ref={sliderRef} onScroll={handleScroll} className="overflow-x-auto flex gap-1 snap-x snap-mandatory rounded-sm min-h-60 bg-gray-200 scrollbar-hide" > 
+            <div ref={sliderRef} onScroll={handleScroll} className="overflow-x-auto flex gap-1 snap-x snap-mandatory rounded-sm min-h-60 bg-gray-100 scrollbar-hide" > 
             {currentVariant?.images?.map((img, i) => 
               ( 
-               <div key={i} className="min-w-full rounded-xs  h-65 min-h-40  overflow-hidden snap-center bg-gray-200 hello world flex" > 
+               <div key={i} className="min-w-full rounded-xs  h-65 min-h-40  overflow-hidden snap-center bg-gray-100 hello world flex" > 
                  <img src={img} alt="" className="w-full h-full object-contain object-center rounded-sm" /> 
               </div> 
 
             ))}
            </div> {/* Dots */}
-      <div className="absolute -bottom-5 bg-gray-500 min-h-4 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute -bottom-5  min-h-4 left-1/2 -translate-x-1/2 flex space-x-2">
         {currentVariant?.images?.map((_, i) => (
           <button key={i} onClick={() => scrollToIndex(i)}
             className={`h-2 w-2 rounded-full transition-colors ${

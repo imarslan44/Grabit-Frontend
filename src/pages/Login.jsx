@@ -25,7 +25,7 @@ const Login = () => {
   const signIn = async (e) => {
     e.preventDefault();
     try {
-      
+
       const url = `${BACKEND_URL}/api/auth/sign-in`;
       const { email, password } = formData;
       const res = await fetch(url, {
@@ -62,8 +62,8 @@ const Login = () => {
       const data = await res.json();
       if (res.status === 200 || res.status === 201) {
         dispatch(login(data.data.user));
-       if(!location) return navigate("/");
-       return navigate(location);
+        if (!location) return navigate("/");
+        return navigate(location);
       }
       if (res.status === 409) {
         alert(data?.message || "User already exists. Please sign in.");
@@ -100,7 +100,7 @@ const Login = () => {
 
       {/* RIGHT SIDE */}
       <div className="flex w-full lg:w-1/2 items-center justify-center px-6 sm:px-12 z-100 p-10 bg-gradient-to-br from-white to-gray-100/50 ">
-          <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-sm shadow-sm relative">
+        <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-sm shadow-sm relative">
           {/* Back Button */}
           <Link
             to="/"
@@ -155,7 +155,7 @@ const Login = () => {
             </button>
           </form>
           <div className="text-center mt-6 text-sm text-gray-500">
-            { type === "login" ? (
+            {type === "login" ? (
               <>
                 Don’t have an account?{" "}
                 <button

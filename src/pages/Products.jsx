@@ -10,11 +10,15 @@ const Products = () => {
 
 
   return (
-    <section className="w-screen min-h-screen bg-gray-100 pt-14 ">
-      
+    <section className="w-screen min-h-screen bg-gray-100 pt-14 overflow-hidden relative max-sm:pb-16">
+      {/* background  */}
+      <div className="w-[200vw] h-[150vw] rounded-full bg-black absolute -top-90 right-8 z-0">
+ 
+      </div>
   {/* CONTENT */}
-       
+    <div className="w-screen h-screen overflow-y-auto overflow-x-hidden">
     <Productlist/>
+    </div>
 
      
     </section>

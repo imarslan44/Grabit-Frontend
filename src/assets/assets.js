@@ -13,7 +13,7 @@ import logo from './Logo.png';
 // import color_kit_with_brushes_1 from "./color_kit_with_brushes_1.jpg";
 // import color_kit_with_brushes_2 from "./color_kit_with_brushes_2.jpg"
 import hero_image from  "./hero_image.jpg"
-import hero_bg from "./hero_bg.jpeg"
+import hero_bg from "./hero_bg_dark.png"
 
 
 //best selller products

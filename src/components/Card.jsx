@@ -12,31 +12,31 @@ const Card = ({ item, styles }) => {
     "—";
 
   return (
-    <Link 
-      to={`/product/${item._id}`} 
+    <Link
+      to={`/product/${item._id}`}
       onClick={() => window.scrollTo(0, 0)}
     >
       <article
-        className={`mb-2 break-inside-avoid bg-white border-1 border-gray-100 shadow-sm rounded-sm overflow-hidden duration-200 transition-all   hover:border-gray-100 hover:shadow-lg p-1 ${styles}`}
+        className={`mb-5 break-inside-avoid bg-white border-1 border-gray-100 shadow-xl shadow-gray-300 rounded-xl shadow-md overflow-hidden duration-200 transition-all hover:border-gray-100 hover:shadow-lg p-3 mb-3 md:max-h-85 md:min-h-85 ${styles}`}
       >
         {/* IMAGE */}
-        <div className="w-full flex items-start min-h-50 max-h-50 justify-baseline bg-white overflow-hidden rounded-sm ">
+        <div className="w-full bg-white overflow-hidden rounded-sm">
           <img
             src={image}
             alt={item.title}
             loading="lazy"
-            className="w-full h-50 rounded-sm  object-contain   object-top"
-          />    
-          
+            className="w-full rounded-sm object-cover sm:h-50 sm:object-contain sm:object-top"
+          />
+
         </div>
 
         {/* CONTENT */}
-        <div className="p-1 space-y-2 h-22 bg-transparent ">
-          <h3 className="text-sm font-medium text-gray-700 line-clamp-2">
+        <div className="p-1 space-y-2 bg-transparent ">
+          <h3 className="text-sm font-medium text-gray-600 line-clamp-2">
             {item.title}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-main">₹ {price}</span>
+            <span className="text-sm font-semibold text-white bg-blue-400 rounded px-2 ">₹ {price}</span>
             {item.category && (
               <span className="text-xs text-gray-400 uppercase translate-y-3 font-medium">{item.category}</span>
             )}

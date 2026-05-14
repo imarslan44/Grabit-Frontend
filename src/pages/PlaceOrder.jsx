@@ -92,7 +92,7 @@ const handleOrder = async ()=>{
       {/* Back btn */}
 
       <button onClick={()=>navigate(`/product/${productId}`)}
-       className="p-3  absolute top-16 left-6  rounded text-black text-xl cursor-pointer  z-90">
+       className="p-3  absolute top-16 left-2  sm:left-6  rounded text-gray-600 text-2xl cursor-pointer  z-90">
         <ion-icon name="arrow-back-sharp"></ion-icon>
       </button>
     
@@ -107,32 +107,32 @@ const handleOrder = async ()=>{
         }
 
         {/* Order detail section */}
-        <section className=" w-full md:w-1/2 bg-white  max-md:h-screen h-full  flex flex-col justify-center items-center p-4 mb-2 rounded border-x border-gray-200">
+        <section className=" w-full md:w-1/2 bg-gray-50  max-md:h-screen h-full  flex flex-col justify-center items-center p-2 mb-2 rounded border-x border-gray-200">
               {/* product card*/}
-          <div className="grid grid-cols-7  w-full   mt-10 mx-auto    gap-1 p-4 border-b border-gray-100">
+          <div className="grid grid-cols-7  w-full   mt-10 mx-auto    gap-3  border-b border-gray-100 bg-black rounded-lg p-3">
           
-            <img src={currentVarient?.images[0]} alt="" className="rounded-xs object-cover object-center col-start-1 col-span-2 w-26 h-26 row-span-1 border"/>
+            <img src={currentVarient?.images[0]} alt="" className="rounded-sm translate-y-2  object-contain col-start-1 col-span-2 w-28 h-28 row-span-1 border border-gray-200 bg-white"/>
             <div className="w-full col-start-3 col-span-full row-span-1 ">
 
-              <h2 className="w-full text-xl  text-gray-700 tracking-tight capitalize font-serif">{product?.title}</h2>
-              <p className="flex gap-4 text-gray-700 py-3 border-b">
+              <h2 className="w-full   text-gray-200 tracking-tight leading-6 text-lg font-semibold">{product?.title}</h2>
+              <p className="flex gap-3 text-gray-700 py-3 border-b">
 
                 { 
                 currentSize && <span>SIZE <span className="bg-gray-300 rounded-xs text-lg font-semibold h-6 w-6 inline-flex translate-0.5 justify-center items-center text-gray-900 font-serif">{currentSize?.size}</span></span> 
                 }
 
-                <span>QUANTITY :
+                <span className="text-gray-200  p-2 bg-gray-800 font-semibold">QUANTITY :
                  <span><input type="number"
                  value={quantity}
                  min={1}
                  onChange={(e)=>dispatch(updateQuantity(e.target.value))}
-                 className=" border-b-2 text-gray-900 border-gray-400 w-10 h-6    pl-1 ml-1 font-semibold font-mono"/>
+                 className=" border-b-2  border-gray-400 w-10 h-6  text-white rounded   pl-1 ml-1 font-semibold font-mono"/>
                  </span>
                  </span>
 
-                 <span className=" rounded-xs  ">
+                 <span className=" rounded-xs font-semibold text-gray-200  p-2 bg-gray-800">
                   PRICE :
-                  <span className="font-semibold text-gray-900 font-serif pl-1"> rs {price}.
+                  <span className="font-semibold  bg-orange-600 px-2 py-1 rounded pl-1 text-white">₹{price}.
                   </span>
                 </span>
               </p>
@@ -140,7 +140,7 @@ const handleOrder = async ()=>{
             <div className="w-full col-start-1 col-span-full font-semibold relative pt-2">
 
               <button onClick={()=>setShowAddressFOrm(true)}
-              className="text-blue-800 absolute top-2 right-3 cursor-pointer">{
+              className="text-orange-600 absolute top-2 right-3 cursor-pointer">{
                savedAddress.firstName ? <>
                <ion-icon name="create-outline"></ion-icon> Edit </> : <>
               <ion-icon className="font-bold translate-1 text-xl" name="add-outline"></ion-icon> Add 
@@ -148,8 +148,8 @@ const handleOrder = async ()=>{
                   }
               </button>
 
-              <h2>Order Address</h2>
-             <div className="w-full col-start-1 col-span-full text-gray-600 tracking-tight text-md font-normal  text-start justify-baseline gap-1 ">
+              <h2 className='text-gray-400'>Order Address</h2>
+             <div className="w-full col-start-1 col-span-full text-gray-200 tracking-tight text-md font-normal  text-start justify-baseline gap-1 ">
 
             { 
                savedAddress.firstName ? <>
@@ -162,7 +162,7 @@ const handleOrder = async ()=>{
           </div>
 
   {/* Total subTotal */}
-         <div  className='m-auto flex w-full flex-col  items-end px-6'>
+         <div  className='m-auto flex w-full flex-col  items-end px-4 sm:px-6'>
         
           <div className="w-full flex-1 text-lg font- flex items-end  flex-col gap-2 text-gray-800 font-serif">
             <h1 className="flex justify-between w-full border-b border-gray-300">Subtotal.<span className='font-serif inline-block min-w-20 text-end '>Rs {price * quantity}</span></h1>
@@ -183,7 +183,7 @@ const handleOrder = async ()=>{
           </div>
           <button onClick={handleOrder}
 
-           className="py-3 text-xl font-medium bg-gray-800 w-full text-center  text-white flex-1 rounded-sm mt-3 cursor-pointer duration-100 hover:bg-gray-800">
+           className="py-3 text-xl font-medium bg-black w-full text-center  text-white flex-1 rounded-sm mt-3 cursor-pointer duration-100 hover:bg-gray-800">
             Place Order
           </button>
           </div>

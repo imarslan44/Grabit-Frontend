@@ -1,13 +1,13 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border-t w-screen border-gray-200 text-gray-700 md:px-16">
+    <footer className="bg-black mt-2 border-t w-screen border-gray-200 text-gray-300 md:px-16">
 
       {/* TOP SECTION */}
-      <div className="max-w-7xl mx-auto px-3 py-12 grid gap-10 md:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-3 py-12 grid gap-10 md:grid-cols-3 max-sm:flex flex-wrap">
 
         {/* Customer Service */}
-        <div>
-          <h4 className="font-semibold text-lg mb-4  text-black">
+        <div className="max-sm:w-[48%] bg-orange-500 p-2 flex-1 rounded">
+          <h4 className="font-semibold text-lg mb-4  text-gray-100">
             Customer Service
           </h4>
           <ul className="space-y-2 text-sm list-disc pl-4">
@@ -19,8 +19,8 @@ export default function Footer() {
         </div>
 
         {/* Company */}
-        <div>
-          <h4 className="font-semibold text-lg mb-4 text-black">
+        <div className="max-sm:w-[48%] bg-gray-500 rounded p-2 flex-1">
+          <h4 className="font-semibold text-lg mb-4 text-gray-100">
             Company
           </h4>
           <ul className="space-y-2 text-sm">
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div>
+        {/* <div>
           <h4 className="font-semibold text-lg mb-4 text-black">
             Newsletter
           </h4>
@@ -50,8 +50,8 @@ export default function Footer() {
               Subscribe
             </button>
           </div>
-        </div>
-      </div>
+        </div>*/}
+      </div> 
 
       {/* TRUST BAR */}
       <div className="border-t border-b border-gray-200">

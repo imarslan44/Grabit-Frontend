@@ -17,12 +17,12 @@ import PlaceOrder from './pages/PlaceOrder.jsx'
 import Footer from './components/Footer.jsx'
 import Productlist from './components/Productlist.jsx'
 import Orders from './pages/Orders.jsx'
-
+import NavLinks from './components/NavLinks.jsx'
 
 const App = () => {
 
   return (
-   <div className="container w-screen relative max-sm:overflow-hidden">
+   <div className="container   max-sm:h-[100vh]  w-screen  max-sm:overflow-y-scroll bg-gray-200/70 max-sm:overflow-x-hidden">
    <Nav/>
    <Routes>
 
@@ -40,6 +40,10 @@ const App = () => {
       </Route>
 
    </Routes>
+   <div className='sm:hidden p-2'>
+    
+    <NavLinks textColor={'white'} styles={' absolute bottom-2 left-1/2  -translate-x-1/2 w-9/10   p-3 !bg-black shadow !text-white rounded-xl justify-around items-center !z-100 h-14 '}/>
+   </div>
    </div>
   )
 }

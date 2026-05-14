@@ -31,7 +31,7 @@ const handleAddress = (e)=>{
              Close 
             </button>
                
-           <form onSubmit={saveAdressFunc} action="" className="w-full max-w-xl max-sm:h-4/7 h-full md:w-[80%] lg:h-[80%]   py-6 px-3 md:px-10  bg-white  shadow grid grid-cols-2  grid-rows-7 gap-2 lg:rounded ">
+           <form onSubmit={saveAdressFunc} action="" className="w-full max-w-xl max-sm:h-4/7 h-full md:w-[80%] lg:h-[80%]   py-6 px-3 md:px-10  bg-white  shadow grid grid-cols-2  grid-rows-7 gap-2 lg:rounded  max-sm:px-5">
              <h1 className="text-2xl   tracking-wide text-gray-800  flex items-center font-semibold">ADRESS</h1>
     
                 <input
@@ -70,21 +70,21 @@ const handleAddress = (e)=>{
                 type="text" name="street" placeholder="STREET" 
                 className={inputStyles}/>
     
-                <input
+                {/* <input
                 required
                  onChange={handleAddress} value={address.landMark}
                 type="text" name="landMark" placeholder='LAND MARK' 
-                className={inputStyles}/>
+                className={inputStyles}/> */}
              
              <div className="w-full flex gap-3 col-start-1 col-span-full justify-between">
       
                 <button disabled={true} type="button"
-                 className="   w-full  border border-gray-400 text-gray-400  rounded-xs px-2 text-sm leading-4  transition ">
+                 className=" bg-black/90  w-full  border border-gray-400 text-gray-400  rounded px-2 text-xl leading-4  transition ">
                   Save as permanent Address
                 </button>
                  <button
                   type="submit"
-                 className="bg-gray-800 text-white  rounded-xs w-full  transition cursor-pointer">
+                 className="bg-black text-white text-2xl font-semibold  rounded w-full  transition cursor-pointer">
                   Save Address
                 </button>
             </div>

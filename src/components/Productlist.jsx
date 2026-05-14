@@ -103,7 +103,7 @@ const Productlist = () => {
         </select>
       </div>
 
-      {loading && <div className="py-30 bg-red-100 h-full text-center text-xl text-gray-700 p-15 ">Loading…</div>}
+      {loading && <div className="py-30 bg-white h-full text-center text-xl text-gray-700 p-15 ">Loading…</div>}
       {error && <div className="py-30 h-78 text-center ">
         <p className="text-gray-700">Failed to load products</p>
         <button className="px-8 py-2 text-md font-semibold bg-blue-400 rounded ">

@@ -989,9 +989,6 @@
   .bg-orange-100 {
     background-color: var(--color-orange-100);
   }
-  .bg-orange-300 {
-    background-color: var(--color-orange-300);
-  }
   .bg-orange-400 {
     background-color: var(--color-orange-400);
   }
@@ -2073,11 +2070,6 @@
   .lg\:rounded-lg {
     @media (width >= 64rem) {
       border-radius: var(--radius-lg);
-    }
-  }
-  .lg\:rounded-none {
-    @media (width >= 64rem) {
-      border-radius: 0;
     }
   }
   .lg\:px-8 {

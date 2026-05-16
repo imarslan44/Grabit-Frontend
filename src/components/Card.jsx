@@ -11,10 +11,17 @@ const Card = ({ item, styles }) => {
     item.price ||
     "—";
 
+  const scrollToTop = () => {
+    
+   
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    
+  };
+
   return (
     <Link
       to={`/product/${item._id}`}
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={scrollToTop}
     >
       <article
         className={`mb-5 break-inside-avoid bg-white border-1 border-gray-100 shadow-xl shadow-gray-300 rounded-xl shadow-md overflow-hidden duration-200 transition-all hover:border-gray-100 hover:shadow-lg p-3 mb-3 md:max-h-85 md:min-h-85 ${styles}`}
@@ -36,7 +43,7 @@ const Card = ({ item, styles }) => {
             {item.title}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-white bg-blue-400 rounded px-2 ">₹ {price}</span>
+            <span className="text-sm font-semibold text-white bg-orange-400 rounded-sm px-2 ">₹ {price}</span>
             {item.category && (
               <span className="text-xs text-gray-400 uppercase translate-y-3 font-medium">{item.category}</span>
             )}

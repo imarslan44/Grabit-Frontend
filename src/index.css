@@ -165,3 +165,7 @@ form input {
   scrollbar-width: none;
   /* Firefox */
 }
+
+html, body {
+  @apply bg-gray-200/60 text-gray-800 font-sans;
+}

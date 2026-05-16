@@ -22,7 +22,7 @@ import NavLinks from './components/NavLinks.jsx'
 const App = () => {
 
   return (
-   <div className="container   max-sm:h-[100vh]  w-screen  max-sm:overflow-y-scroll bg-gray-200/70 max-sm:overflow-x-hidden">
+   <div className="container   max-sm:h-[100vh]  w-screen  max-sm:overflow-y-scroll  max-sm:overflow-x-hidden">
    <Nav/>
    <Routes>
 

@@ -1,5 +1,5 @@
 
-import logo from './Logo.png';
+import logo from './LOGO.jpeg';
 
 // import stationaries from './stationaries.png';
 // // import product images

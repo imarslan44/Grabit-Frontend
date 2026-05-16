@@ -17,7 +17,7 @@ const Nav = () => {
           {/* LEFT */}
           <div className="flex items-center gap-4 ">
             <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="text-2xl text-gray-700 flex items-baseline cursor-pointer bg-white rounded h-10 w-12 justify-center items-center flex">
+              className="text-2xl text-gray-700  cursor-pointer bg-white rounded h-10 w-12 justify-center items-center flex">
               <ion-icon name="grid-outline"></ion-icon>
             </button>
 
@@ -57,9 +57,9 @@ const Nav = () => {
 
       <aside onClick={() => setIsSidebarOpen(false)}
 
-        className={` backdrop-blur-sm   md:block  fixed top-14 h-screen border  border-red-300 ${isSidebarOpen ? "opacity-100 w-screen" : " w-0 opacity-50"}  md:static  transition-all duration-200 ease-in-out z-50 overflow-hidden`}>
+        className={` bg-black  md:block  fixed top-14 h-screen   border- ${isSidebarOpen ? "opacity-100 w-screen" : " w-0 opacity-50"}  md:static  transition-all duration-200 ease-in-out z-50 overflow-hidden`}>
 
-        <ul className="bg-white w-52 flex flex-col h-full gap-4 p-4 text-gray-700  text-sm font-medium shadow ">
+        <ul className="bg-white w-52 flex flex-col h-full gap-4 p-4 text-black  text-lg font-medium shadow ">
           <div className=" -translate-x-8"><img src={assets.logo} alt="" width={200} /></div>
           <NavLink to="/orders">Orders</NavLink>
           <NavLink to="/login">Logout</NavLink>

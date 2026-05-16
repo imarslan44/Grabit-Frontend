@@ -21,6 +21,8 @@ const Product = () => {
     const width = sliderRef.current.offsetWidth;
     sliderRef.current.scrollTo({ left: width * index, behavior: "smooth", }); setActiveIndex(index);
   };
+
+
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,6 +49,12 @@ const Product = () => {
   useEffect(() => {
     setVariantIndex(0)
     setActiveIndex(0)
+    const wrapper = document.querySelector(".container");
+    if (wrapper) {
+      wrapper.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
   }, [id])
 
 

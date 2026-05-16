@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <section className="relative w-screen h-[70vh] overflow-hidden bg-gray-100  md:p-8 max-md:h-[70vh] max-sm:h-[30vh] rounded ">
+    <section className="relative w-screen h-[70vh] overflow-hidden   md:p-8 max-md:h-[70vh] max-sm:h-[30vh] rounded ">
       {/* Background Image */}
-      <div className="absolute inset-0 shadow-xl shadow-gray-200   border- mx-2 mt-16 rounded-xl overflow-hidden">
+      <div className="absolute inset-0 shadow-xl shadow-gray-200   border- mx-2 mt-16 rounded-xl overflow-hidden lg:mx-12 lg:rounded-lg">
         <img
           src={assets.hero_bg}
           alt="Hero background"

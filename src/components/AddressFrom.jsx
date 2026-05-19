@@ -70,11 +70,11 @@ const handleAddress = (e)=>{
                 type="text" name="street" placeholder="STREET" 
                 className={inputStyles}/>
     
-                {/* <input
+                 <input
                 required
                  onChange={handleAddress} value={address.landMark}
-                type="text" name="landMark" placeholder='LAND MARK' 
-                className={inputStyles}/> */}
+                type="text" name="landMark" placeholder='Building, House no., Apartment, etc.' 
+                className={inputStyles} /> 
              
              <div className="w-full flex gap-3 col-start-1 col-span-full justify-between">
       

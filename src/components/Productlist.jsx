@@ -92,8 +92,8 @@ const Productlist = () => {
  
 
   return (
-    <main className=" w-screen   rounded-xs sm:px-5 lg:px-10 pt-8 z-90">
-      <div className="flex  sm:flex-row sm:justify-between gap-6 md:gap-4 mb-6 px-3 z-10">
+    <main className=" w-screen   rounded-xs sm:px-5 lg:px-10 pt-8 z-90 pb-10">
+      <div className="flex  sm:flex-row sm:justify-between gap-6 md:gap-4 mb-6 px-3 z-10 ">
         <div>
           <h2 className="text-lg text-gray-500 md:text-2xl  font-medium  tracking-tight uppercase z-90">Explore items.</h2>
           <p className="text-sm text-gray-500 z-10">Showing 1–{items.length} of {items.length} Products</p>
@@ -113,7 +113,7 @@ const Productlist = () => {
         </button>
       </div>}
 {/* masnoary layout for products */}
-      <ul className=" rounded columns-2 p-3 relative gap-5 sm:[columns:unset] sm:grid sm:grid-cols-3 lg:grid-cols-5 pb-0">
+      <ul className=" rounded columns-2 p-3 relative gap-5 sm:[columns:unset] sm:grid sm:grid-cols-3 lg:grid-cols-5 pb-10">
         {items.map((item, i) => (
           <Card key={item._id || i} item={item} styles="mb-2 break-inside-avoid" />
         ))}

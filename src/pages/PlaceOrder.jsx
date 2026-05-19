@@ -74,7 +74,7 @@ const handleOrder = async ()=>{
       };
   
   // validate the address in two steps
-  const inValidAddress = !savedAddress.firstName || !savedAddress.lastName || !savedAddress.city || !savedAddress.pinCode || !savedAddress.pinCode || !savedAddress.street || !savedAddress.landMark || false;
+  const inValidAddress = !savedAddress.firstName || !savedAddress.lastName || !savedAddress.city || !savedAddress.pinCode || !savedAddress.pinCode || !savedAddress.street || !savedAddress.phone || false;
 
   if(inValidAddress) return alert("pleas enter address before");
 

@@ -21,7 +21,7 @@ export const placeOrderCOD = async (orderData)=>{
 
     
       console.log("data", data)
-      if(!data.success) return
+      if(!data.success) return alert(data.message || "Oops something went wrong placing your order!!");
 
       alert("order placed successfully!!");
       

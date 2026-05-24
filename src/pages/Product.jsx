@@ -37,6 +37,9 @@ const Product = () => {
   const price = currentSize?.price || currentVariant?.price;
 
 
+  const [showReviews, setShowReviews] = useState(false)
+
+
 
   useEffect(() => {
     (async () => {
@@ -97,7 +100,9 @@ const Product = () => {
   };
 
   return (
-    <section className="w-screen   md:px-20 bg-black min-h-screen flex flex-col lg:flex-row gap-8 ">
+
+    
+    <section className="w-screen   md:px-20 bg-gray-50 min-h-screen flex flex-col lg:flex-row gap-8 ">
 
       {/* IMAGE SECTION */}
       <div className="w-full md:h-[85vh]  lg:w-3/8  pt-18 bg-white rounded-b-4xl md:p-4 md:pt-20" >
@@ -158,11 +163,13 @@ const Product = () => {
       </div>
 
       {/* PRODUCT DETAILS */}
-      <div className="w-full flex-1 bg-white  p-4 md:p-6 shadow-xs  rounded-t-4xl  md:mt-16">
+      
+      <div className="w-full flex-1 bg-black  p-4 md:p-6 shadow-xs  rounded-t-4xl text-gray-200  ">   
 
-        <p className="text-xs uppercase text-gray-500">{product?.seller || ""}</p>
-        <h1 className="text-xl  sm:text-2xl text-black font-semibold mt-1">
-          {product?.title ? product.title : (<h1 className="rounded-sm w-2/3 h-8 bg-gray-200"></h1>
+        <p className="text-xs uppercase text-gray-200">{product?.seller || ""}</p>
+        <h1 className="text-xl  sm:text-2xl text-gray-100 font-semibold mt-3">
+          {product?.title ? product.title : (<><h1 className="rounded-xl w-8/10 h-4 mb-2 bg-gray-200"></h1>
+          <h1 className="rounded-xl w-5/10 h-4 bg-gray-200"></h1></>
           )
           }
         </h1>
@@ -175,15 +182,15 @@ const Product = () => {
               <button
                 key={i}
                 onClick={() => setVariantIndex(i)}
-                className={`border border-gray-300  shadow-md shadow-gray-200 rounded-xl overflow-hidden ${variantIndex === i
-                  ? "opacity-80"
-                  : "border-gray-200"
+                className={`border-t-2  pt-2    rounded- overflow-hidden ${variantIndex === i
+                  ? "border-orange-500"
+                  : "border-transparent"
                   }`}
               >
                 <img
                   src={v.images?.[0]}
                   alt=""
-                  className="w-18 h-18 object-contain"
+                  className="w-18 rounded-md overflow-hidden bg-gray-100 h-18 object-contain"
                 />
               </button>
             ))}
@@ -218,24 +225,24 @@ const Product = () => {
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className="w-14 border rounded-xs border-gray-400 px-2 py-1 text-center"
+            className="w-14 border rounded-xs text-gray-100 border-gray-200 px-2 py-1 text-center"
           />
-          <p className="text-xl font-bold text-gray-800">
+          <p className="text-xl font-bold text-gray-100">
             ₹ {quantity * price || ""}
           </p>
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-4 mt-6 w-7/10">
+        <div className="flex gap-4 mt-6 w-full">
           <button
             onClick={handleCart}
-            className="flex-1 border border-gray-300 rounded-md py-3 text-sm sm:text-xl font-semibold hover:bg-gray-100 cursor-pointer"
+            className="flex-1 border border-gray-100 rounded-md py-3 text-sm sm:text-xl text-gray-100 font-semibold hover:bg-gray-300 cursor-pointer"
           >
             Add To Cart
           </button>
           <button
             onClick={buyNow}
-            className="flex-1 bg-black text-white rounded-md py-3 text-sm sm:text-xl font-semibold hover:opacity-90 cursor-pointer"
+            className="flex-1 bg-orange-600 text-white rounded-md py-3 text-sm sm:text-xl font-semibold hover:opacity-90 cursor-pointer"
           >
             BUY NOW
           </button>
@@ -243,10 +250,10 @@ const Product = () => {
 
         {/* HIGHLIGHTS */}
         <div className="mt-6 md:w-7/10 ">
-          <h3 className="font-semibold text-gray-700">
+          <h3 className="font-semibold text-gray-400">
             Highlights
           </h3>
-          <ul className="list-disc pl-6 mt-2 text-gray-600 text-md sm:text-lg ">
+          <ul className="list-disc pl-6 mt-2 text-gray-300 text-md sm:text-lg ">
             {product?.attributes?.specs?.map(
               (s, i) => s && <li key={i}>{s}</li>
             )}
@@ -254,16 +261,51 @@ const Product = () => {
         </div>
 
         {/* DESCRIPTION */}
-        {product?.description && (
-          <div className="mt-4 md:w-8/10">
-            <h3 className="font-semibold text-gray-700">
+        
+
+        {/* add a descriptioin and review section users should be able swithc to see either description or reviews */}
+
+        <div>
+          <div className="flex gap-1 mt-6 w-full border-b border-gray-500">
+            {/* select between description and reviews */}
+            <button
+              onClick={() => setShowReviews(false)}
+              className={`px-4 py-2 border-b flex-1 w-full ${!showReviews ? "border-orange-500 border" : " border-gray-300  text-gray-400"}`}
+            >
+              Description
+            </button>
+            <button
+              onClick={() => setShowReviews(true)}
+              className={`px-4 w-full flex-1 py-2 border-b ${showReviews ? "border-orange-500 border" : "border-gray-300  text-gray-400"}`}
+            >
+             Reviews
+            </button>
+          </div>
+          {/* description or reviews content based on state  */}
+           {
+            showReviews ? (
+              <div className="mt-4">
+                <h3 className="font-semibold text-gray-400">No Reviews</h3>
+              </div>
+            ) : (
+              <div className="mt-4">
+                {product?.description && (
+          <div className="md:w-8/10">
+            <h3 className="font-semibold text-gray-400">
               Description
             </h3>
-            <p className="text-md sm:text-lg text-gray-600 mt-1">
+            <p className="text-md sm:text-lg text-gray-300 mt-1">
               {product.description}
             </p>
           </div>
         )}
+              </div>
+            )}
+        </div>
+      
+        
+
+
       </div>
     </section>
   );

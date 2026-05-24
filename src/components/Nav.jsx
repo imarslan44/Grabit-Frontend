@@ -43,7 +43,7 @@ const Nav = () => {
               <input id="search"
                 type="text"
                 placeholder="Search..."
-                className="w-[0] focus:w-85 h-12 pr-11 pl-2 focus:bg-white  outline-none  rounded-sm  text-xl p-4
+                className="w-[0] focus:w-[100%] h-12 pr-11 pl-2 focus:bg-white  outline-none  rounded-sm  text-xl p-4
                            placeholder-gray-600       duration-200"
               />
             </div>

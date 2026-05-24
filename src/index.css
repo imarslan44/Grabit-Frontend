@@ -167,5 +167,5 @@ form input {
 }
 
 html, body {
-  @apply bg-gray-200/60 text-gray-800 font-sans;
+  @apply bg-gray-100 text-gray-800 font-sans;
 }

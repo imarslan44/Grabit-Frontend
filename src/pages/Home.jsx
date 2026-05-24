@@ -7,7 +7,7 @@ function Home() {
   return (
     <section className="relative w-screen h-[70vh] overflow-hidden   md:p-8 max-md:h-[70vh] max-sm:h-[30vh] rounded ">
       {/* Background Image */}
-      <div className="absolute inset-0 shadow-xl shadow-gray-200   border-2 bg-black mx-2 mt-16 rounded-xl overflow-hidden lg:mx-12 lg:rounded-lg">
+      <div className="absolute inset-0 shadow-xl    border-2 bg-black  mx-2 mt-16 rounded-xl overflow-hidden lg:mx-12 lg:rounded-lg">
         <img
           src={assets.hero_bg}
           alt="Hero background"

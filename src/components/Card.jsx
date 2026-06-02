@@ -24,7 +24,7 @@ const Card = ({ item, styles }) => {
       onClick={scrollToTop}
     >
       <article
-        className={` break-inside-avoid bg-white border-1 border-gray-100  shadow-gray-300 rounded-xl shadow-sm overflow-hidden duration-200 transition-all hover:border-gray-100 hover:shadow-lg p-3 mb-5 md:max-h-85 md:min-h-85 ${styles}`}
+        className={` break-inside-avoid bg-white border-1  shadow-gray-300 rounded- shadow-none overflow-hidden duration-200 transition-all hover:border-gray-100 hover:shadow-lg p-3   md:max-h-85 md:min-h-85 md:rounded-sm md:shadow-none border-gray-300 md:mb-5 ${styles}`}
       >
         {/* IMAGE */}
         <div className="w-full bg-white overflow-hidden rounded-sm">

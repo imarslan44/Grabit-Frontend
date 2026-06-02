@@ -43,6 +43,7 @@ const Productlist = () => {
     try {
       //pagination can be implemented here using index and limit
 
+      setLoading(true)
       const url = `${BACKEND_URL}/api/product?${pageQuery}`;
       console.log("Fetching products from:", url);
       const res = await fetch(url, { signal: controller.signal, method: "GET" });
@@ -50,14 +51,15 @@ const Productlist = () => {
 
 
 
-      console.log("Fetch response status:", res);
+    
       if (!res.ok) throw new Error();
       const data = await res.json();
-      console.log("Fetched products:", data);
+      
       const list = data?.data || [];
 
       setItems((prev) => [...prev, ...list]);
       dispatch(LoadProducts(items));
+      setLoading(false)
 
     } catch (e) {
       console.log("error", e)
@@ -105,21 +107,30 @@ const Productlist = () => {
         </select>
       </div>
 
-      {loading && <div className="py-30  h-full text-center text-xl text-gray-700 p-15 ">Loading…</div>}
+      
+        {loading && <div className={`py-30  h-full text-center text-xl text-gray-700 p-15  `}>  Loading…</div>}
+
       {error && <div className="py-30 h-78 text-center ">
         <p className="text-gray-700">Failed to load products</p>
-        <button className="px-8 py-2 text-md font-semibold bg-blue-400 rounded ">
+        <button className="px-8 py-2 text-md font-semibold bg-blue-400 rounded cursor-pointer">
           Retry
         </button>
       </div>}
+
+
+ <hr  className="  border-gray-300 mx-2 md:mx-5 my-5"/>
+      
 {/* masnoary layout for products */}
-      <ul className=" rounded columns-2 p-3 relative gap-5 sm:[columns:unset] sm:grid sm:grid-cols-3 lg:grid-cols-5 pb-10">
+      <ul className=" rounded columns-2 p-2 relative gap-2 md:gap-5 sm:[columns:unset] sm:grid sm:grid-cols-3 lg:grid-cols-5 md:pb-10">
         {items.map((item, i) => (
           <Card key={item._id || i} item={item} styles="mb-2 break-inside-avoid" />
         ))}
         
-    <button onClick={() => setPage((prev) => prev + 1)}
-          className={` bg-black min-w-md hover:bg-gray-900 text-white font-bold py-2 px-4  rounded-xs absolute left-1/2 bottom-0 transform -translate-x-1/2 cursor-pointer ${items.length < 10 && "hidden"}`}>
+
+{loading && <div className={`py-30  h-full text-center text-xl text-gray-700 p-15  `}>  Loading…</div>}
+
+       <button onClick={() => setPage((prev) => prev + 1)}
+          className={` bg-black min-w-md hover:bg-gray-900 text-white font-bold py-2 px-4  rounded-xs absolute left-1/2 bottom-0 transform -translate-x-1/2 cursor-pointer ${items.length < 10  || loading ? "hidden" : ""}`}>
           Load More <ion-icon name="caret-down-outline" className="translate-y-1"></ion-icon>
 
         </button>

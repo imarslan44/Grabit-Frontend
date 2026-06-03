@@ -4,30 +4,17 @@ import { BACKEND_URL } from "../config/env.js";
 import { LoadProducts } from "../context/productsSlice.js";
 import Card from "../components/Card";
 import { use } from "react";
+import { searchProducts } from "../controllers/product.controller.js";
+import { useSelector } from "react-redux";
+
+//import neceessory fuction for global state management for search functionality to show search results in product list page
+import { setQuery, setLoading, setError, setResults } from "../context/search.slice.js";
+
 
 const Productlist = () => {
 
-  // export const getProductList = async (req, res)=>{
-  // //productList for admin
-  // let index = req.query.index || 0;
-  // try{ 
-  //     //pagination can be implemented here using index and limit
-  //     const productList = await Product.find().skip(index).limit(20);
-
-  //     if(!productList) return res.status(500).json('something went wrong')
-
-  //     return res.status(200).json({
-  //         success: true,
-  //         message: "product list retrieved",
-  //         data: productList 
-
-  //     })
 
 
-  // }catch(error){
-  //     res.status(error?.statusCode || 500 ).json(error.message)
-  // }
-  // }
 
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
@@ -40,29 +27,27 @@ const Productlist = () => {
   const fetchProducts = async (controller, page) => {
     let index = (page - 1) * 10; // Calculate the index based on the page number
     const pageQuery = `index=${index}`;
+
     try {
       //pagination can be implemented here using index and limit
-
       setLoading(true)
       const url = `${BACKEND_URL}/api/product?${pageQuery}`;
-      console.log("Fetching products from:", url);
       const res = await fetch(url, { signal: controller.signal, method: "GET" });
 
-
-
-
-    
       if (!res.ok) throw new Error();
       const data = await res.json();
       
       const list = data?.data || [];
 
-      setItems((prev) => [...prev, ...list]);
-      dispatch(LoadProducts(items));
+      // Update items: replace on first page, append on subsequent pages
+      setItems((prev) => {
+        const newItems = page === 1 ? list : [...prev, ...list];
+        dispatch(LoadProducts(newItems));
+        return newItems;
+      });
       setLoading(false)
 
     } catch (e) {
-      console.log("error", e)
       if (e.name !== "AbortError") setError(true);
     } finally {
 
@@ -70,12 +55,33 @@ const Productlist = () => {
     }
   };
 
+  //change product list when search results are updated in global state
+  const searchQuery = useSelector((state) => state.search.query);
+  const searchResults = useSelector((state) => state.search.results);
+  const searchLoading = useSelector((state) => state.search.loading);
+  const searchError = useSelector((state) => state.search.error);
+
+
+  useEffect(() => {
+    if (searchQuery) {
+      setItems(searchResults);
+      setLoading(searchLoading);
+      
+    } else {
+      setItems([]);
+      setPage(1);
+      setLoading(true);
+      setError(false);
+      const controller = new AbortController();
+      fetchProducts(controller, 1);
+      return () => controller.abort();
+    }
+  }, [searchQuery, searchResults, searchLoading, searchError]);
   useEffect(() => {
     const controller = new AbortController();
     fetchProducts(controller, page);
     // return () => controller.abort();
     return () => {
-      console.log("Aborting fetch for products");
       controller.abort();
     };
   }, []);
@@ -84,10 +90,7 @@ const Productlist = () => {
     if (page === 1) return;
     const controller = new AbortController();
     fetchProducts(controller, page);
-    return () => {
-      console.log("Aborting fetch for products on page change");
-      controller.abort();
-    }
+    return () => controller.abort();
   }, [page]);
 
   // dont set scroll smooth for this  skip this list dont show its scrolling
@@ -117,24 +120,35 @@ const Productlist = () => {
         </button>
       </div>}
 
+       {
+        searchError && <div className="py-30 h-78 text-center w-screen    text-xl">
+            <p className="text-gray-700">Failed to load search results.</p>
+          </div>
+        }
+
+
+
 
  <hr  className="  border-gray-300 mx-2 md:mx-5 my-5"/>
       
 {/* masnoary layout for products */}
       <ul className=" rounded columns-2 p-2 relative gap-2 md:gap-5 sm:[columns:unset] sm:grid sm:grid-cols-3 lg:grid-cols-5 md:pb-10">
-        {items.map((item, i) => (
+        {items.length > 0 && items?.map((item, i) => (
           <Card key={item._id || i} item={item} styles="mb-2 break-inside-avoid" />
         ))}
+
+       
         
 
-{loading && <div className={`py-30  h-full text-center text-xl text-gray-700 p-15  `}>  Loading…</div>}
+{ items.length > 0 && loading && <div className={`py-30  h-full text-center text-xl text-gray-700 p-15  `}>  Loading…</div>}
 
-       <button onClick={() => setPage((prev) => prev + 1)}
+      { items.length > 0 && !loading && 
+        <button onClick={() => setPage((prev) => prev + 1)}
           className={` bg-black min-w-md hover:bg-gray-900 text-white font-bold py-2 px-4  rounded-xs absolute left-1/2 bottom-0 transform -translate-x-1/2 cursor-pointer ${items.length < 10  || loading ? "hidden" : ""}`}>
           Load More <ion-icon name="caret-down-outline" className="translate-y-1"></ion-icon>
 
         </button>
-
+}
       </ul>
 
     </main>

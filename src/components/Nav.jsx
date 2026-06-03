@@ -1,12 +1,36 @@
 import React, { use } from "react";
 import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
+//import neceessory fuction for global state management for search functionality
+import { useSelector, useDispatch } from "react-redux";
+import { setQuery, setLoading, setError, setResults } from "../context/search.slice.js";
+import { searchProducts } from "../controllers/product.controller.js";
 let SELLER_SITE = "https://barket-seller.vercel.app/";
 
 import NavLinks from "./NavLinks";
+
 const Nav = () => {
   // Sidebar toggle state
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+
+  const dispatch = useDispatch();
+  const searchQuery = useSelector((state) => state.search.query);
+
+  const handleSearch = async (e) => {
+   
+    e.preventDefault();
+    if (!searchQuery) return;
+    dispatch(setLoading(true));
+    try {
+      const results = await searchProducts(searchQuery, dispatch);
+      dispatch(setResults(results));
+    } catch (error) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full     z-100 h-15 ">
@@ -17,7 +41,7 @@ const Nav = () => {
           {/* LEFT */}
           <div className="flex items-center gap-4 ">
             <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="text-2xl text-gray-700  cursor-pointer bg-white rounded h-10 w-12 justify-center items-center flex">
+              className="text-2xl  text-gray-700  cursor-pointer bg-white rounded h-10 w-12 justify-center items-center flex">
               <ion-icon name="grid-outline"></ion-icon>
             </button>
 
@@ -34,20 +58,38 @@ const Nav = () => {
           <p className="text-2xl text-cennter absolute left-1/2  -translate-x-1/2 z-90 sm:hidden text-gray-500">Explore</p>
 
           {/* CENTER SEARCH */}
-          <div className=" flex flex-1 justify-center items-center   rounded-sm z-100 ">
-            <div className="w-full  max-w-xl relative rounded-sm overflow-hidden">
-              <label htmlFor="search" className="absolute right-2 top-1/2 -translate-y-1/2 text-black text-2xl">
-                <ion-icon name="search-outline"></ion-icon>
-              </label>
+          <form onSubmit={handleSearch}
+          className=" flex flex-1 justify-center items-center  max-sm:border-none h-10  rounded-sm z-100 ">
+            <div className="w-full   max-w-xl relative rounded-sm overflow-hidden">
 
-              <input id="search"
+              <label htmlFor="search" className="" onClick={(e)=>{
+                
+                console.log(e.target.tagName);
+              }}  >
+              <button onClick={()=>{
+                console.log("Search button clicked with query:", searchQuery);
+              }} type="button" className="absolute right-0 w-12 h-10 p-2 rounded-sm  top-1/2 -translate-y-1/2 text-black text-2xl">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+             </label>
+            
+              <input value={searchQuery}
+              onChange={(e)=>{dispatch(setQuery(e.target.value));
+                dispatch(setError(null));
+              }}
+                id="search"
                 type="text"
                 placeholder="Search..."
-                className="w-[0] focus:w-[100%] h-12 pr-11 pl-2 focus:bg-white  outline-none  rounded-sm  text-xl p-4
-                           placeholder-gray-600       duration-200"
-              />
+                className={` ${searchQuery !== "" ? "opacity-100" : "opacity-0"}  focus:w-[100%]  h-11 pr-11 pl-2 bg-white focus:opacity-100  outline-none border-gray-300  rounded-sm  text-xl p-4 placeholder-gray-600  duration-200`}/>
+
+          { searchQuery &&  <button onClick={()=>{
+                handleSearch(new Event("submit", { cancelable: true, bubbles: true }));
+              }} type="button" className="absolute right-0 w-12 h-10 p-2 rounded-sm top-1/2 -translate-y-1/2 text-black text-2xl z-90">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+}
             </div>
-          </div>
+          </form>
             <NavLinks styles="max-sm:hidden "/>
         
 
@@ -72,5 +114,6 @@ const Nav = () => {
     </header>
   );
 };
+
 
 export default Nav;
